@@ -8,6 +8,7 @@ public class MapDirector : Singletone<MapDirector>
     [SerializeField]
     private Vector2 mTileSize = Vector2.zero;
     private Vector2 mMapSize = Vector2.zero;
+    [SerializeField]
     private Vector2 mOffset = Vector2.zero;
     private List<GameObject> mTiles = new List<GameObject>();
     private Dictionary<string, GameObject> mTilePrefabDic = new Dictionary<string, GameObject>();
@@ -98,8 +99,9 @@ public class MapDirector : Singletone<MapDirector>
         switch(tileCode)
         {
             case '0':
+            case '1':
                 GameObject obj = null;
-                if(mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
+                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
                 {
                     GameObject tile = Instantiate(obj) as GameObject;
                     Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
@@ -110,6 +112,10 @@ public class MapDirector : Singletone<MapDirector>
                 {
                     Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
                 }
+
+                return fIndex + 1;
+            case '@':
+                PlayerDirector.Instance.MakePlayer(GetPositionFromMapIndex(fMapIndex));
 
                 return fIndex + 1;
             default:
