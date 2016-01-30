@@ -35,6 +35,9 @@ public class PlayerDirector : Singletone<PlayerDirector>
 
     public void MakePlayer(Vector2 pos)
     {
+        if (mPlayerPrefab == null)
+            Start();
+
         mPlayer = Instantiate(mPlayerPrefab) as GameObject;
         mPlayer.transform.position = pos;
     }

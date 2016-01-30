@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameDirector : Singletone<GameDirector>
 {
     #region Variables
     [SerializeField]
     private GameObject mWorld = null;
+    [SerializeField]
+    private Stick[] mSticks = null;
 
     /// <summary>
     /// 업데이트 할 것인가
@@ -24,5 +27,10 @@ public class GameDirector : Singletone<GameDirector>
     void Update()
     {
         CameraDirector.Instance.update();
+
+        for(int i = 0; i< mSticks.Length; i++)
+        {
+            mSticks[i].update();
+        }
     }
 }
