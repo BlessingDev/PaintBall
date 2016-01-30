@@ -8,6 +8,8 @@ public class Stick : MonoBehaviour
     private GameObject mStick = null;
     [SerializeField]
     private float mRadius = 30;
+    [SerializeField]
+    private float mRate = 0.01f;
     private bool mTouching = false;
     #endregion
 
@@ -32,7 +34,6 @@ public class Stick : MonoBehaviour
             Vector2 mouseLocal = transform.worldToLocalMatrix.MultiplyPoint3x4(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
             float dis = Vector2.Distance(Vector2.zero, mouseLocal);
-            Debug.Log("dis " + dis + " mouse " + mouseLocal);
 
             if(dis <= mRadius)
             {
