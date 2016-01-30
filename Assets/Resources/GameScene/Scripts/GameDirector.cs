@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameDirector : Singletone<GameDirector>
 {
@@ -23,6 +24,11 @@ public class GameDirector : Singletone<GameDirector>
 
     void Update()
     {
-        CameraDirector.Instance.update();
+        if(mUpdate)
+        {
+            CameraDirector.Instance.update();
+            UIDirector.Instance.update();
+            PlayerDirector.Instance.update();
+        }
     }
 }
