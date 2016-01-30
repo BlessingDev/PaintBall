@@ -4,10 +4,16 @@ using System.Collections;
 public class PlayerDirector : Singletone<PlayerDirector>
 {
     #region Variables
+    public bool mGrounded = true;
+
     [SerializeField]
     private Stick mStick = null;
     [SerializeField]
     private float mMaxSpeed = 10;
+    [SerializeField]
+    private float mJumpForce = 10f;
+    [SerializeField]
+    private float mJumpY = 30f;
     private GameObject mPlayerPrefab = null;
     private GameObject mPlayer = null;
     private Rigidbody2D mRB = null;
@@ -37,6 +43,7 @@ public class PlayerDirector : Singletone<PlayerDirector>
         if(mPlayer != null)
         {
             PlayerMove();
+            PlayerJump();
         }
     }
     #endregion
@@ -54,9 +61,17 @@ public class PlayerDirector : Singletone<PlayerDirector>
 
     private void PlayerMove()
     {
-        if(Mathf.Abs(mRB.velocity.x) <= mMaxSpeed)
+        if(Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
         {
             mRB.AddForce(new Vector2(mStick.StickVector.x, 0));
+        }
+    }
+
+    private void PlayerJump()
+    {
+        if(mGrounded && mStick.OriginStickVector.y >= mJumpY)
+        {
+            mRB.AddForce(new Vector2(0, mStick.StickVector.y * mJumpForce));
         }
     }
 }

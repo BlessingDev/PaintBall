@@ -13,6 +13,14 @@ public class Stick : MonoBehaviour
     private bool mTouching = false;
     #endregion
 
+    #region Capsules
+    public bool Touching
+    {
+        get
+        {
+            return mTouching;
+        }
+    }
     public Vector2 StickVector
     {
         get
@@ -20,7 +28,15 @@ public class Stick : MonoBehaviour
             return mStick.transform.localPosition;
         }
     }
-	
+    public Vector2 OriginStickVector
+    {
+        get
+        {
+            return mStick.transform.localPosition;
+        }
+    }
+    #endregion
+
     public void update()
     {
         StickMove();
