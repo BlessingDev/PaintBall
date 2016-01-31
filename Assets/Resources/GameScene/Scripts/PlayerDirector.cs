@@ -18,6 +18,7 @@ public class PlayerDirector : Singletone<PlayerDirector>
     private float mJumpY = 30f;
     private GameObject mPlayerPrefab = null;
     private GameObject mPlayer = null;
+    private GameObject mArm = null;
     private Rigidbody2D mRB = null;
     private bool mLeft = false;
     private bool mRight = false;
@@ -29,6 +30,13 @@ public class PlayerDirector : Singletone<PlayerDirector>
         get
         {
             return mPlayer;
+        }
+    }
+    public GameObject Arm
+    {
+        get
+        {
+            return mArm;
         }
     }
     #endregion
@@ -60,6 +68,8 @@ public class PlayerDirector : Singletone<PlayerDirector>
         mPlayer.transform.position = pos;
 
         mRB = mPlayer.GetComponent<Rigidbody2D>();
+        mArm = mPlayer.transform.GetChild(1).gameObject;
+        ShootingDirector.Instance.mShootPos = mArm.transform.GetChild(0);
     }
 
     private void PlayerMove()

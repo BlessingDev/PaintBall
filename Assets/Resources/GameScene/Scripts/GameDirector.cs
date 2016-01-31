@@ -29,6 +29,7 @@ public class GameDirector : Singletone<GameDirector>
             CameraDirector.Instance.update();
             UIDirector.Instance.update();
             PlayerDirector.Instance.update();
+            ShootingDirector.Instance.update();
 
             KeyboardInput();
         }
