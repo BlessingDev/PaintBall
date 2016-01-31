@@ -25,7 +25,7 @@ public class Stick : MonoBehaviour
     {
         get
         {
-            return mStick.transform.localPosition;
+            return mStick.transform.localPosition * mRate;
         }
     }
     public Vector2 OriginStickVector

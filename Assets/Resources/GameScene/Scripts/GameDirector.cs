@@ -29,6 +29,36 @@ public class GameDirector : Singletone<GameDirector>
             CameraDirector.Instance.update();
             UIDirector.Instance.update();
             PlayerDirector.Instance.update();
+            ShootingDirector.Instance.update();
+
+            KeyboardInput();
+        }
+    }
+
+    /// <summary>
+    /// 컴퓨터로 시연할 때 사용할 키보드 대체 키 입력
+    /// </summary>
+    private void KeyboardInput()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            PlayerDirector.Instance.PlayerJump();
+        }
+        if(Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            PlayerDirector.Instance.PlayerMoveRight();
+        }
+        if(Input.GetKeyUp(KeyCode.RightArrow))
+        {
+            PlayerDirector.Instance.PlayerMoveRightUp();
+        }
+        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            PlayerDirector.Instance.PlayerMoveLeft();
+        }
+        if(Input.GetKeyUp(KeyCode.LeftArrow))
+        {
+            PlayerDirector.Instance.PlayerMoveLeftUp();
         }
     }
 }
