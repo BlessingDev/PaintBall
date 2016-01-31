@@ -11,12 +11,16 @@ public class PlayerDirector : Singletone<PlayerDirector>
     [SerializeField]
     private float mMaxSpeed = 10;
     [SerializeField]
+    private float mSpeed = 10f;
+    [SerializeField]
     private float mJumpForce = 10f;
     [SerializeField]
     private float mJumpY = 30f;
     private GameObject mPlayerPrefab = null;
     private GameObject mPlayer = null;
     private Rigidbody2D mRB = null;
+    private bool mLeft = false;
+    private bool mRight = false;
     #endregion
 
     #region Capsules
@@ -43,7 +47,6 @@ public class PlayerDirector : Singletone<PlayerDirector>
         if(mPlayer != null)
         {
             PlayerMove();
-            PlayerJump();
         }
     }
     #endregion
@@ -61,17 +64,51 @@ public class PlayerDirector : Singletone<PlayerDirector>
 
     private void PlayerMove()
     {
-        if(Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
+        if(mLeft)
         {
-            mRB.AddForce(new Vector2(mStick.StickVector.x, 0));
+            if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
+            {
+                mRB.AddForce(new Vector2(-mSpeed, 0));
+            }
+        }
+        if(mRight)
+        {
+            if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
+            {
+                mRB.AddForce(new Vector2(mSpeed, 0));
+            }
         }
     }
 
-    private void PlayerJump()
+    public void PlayerMoveRight()
     {
-        if(mGrounded && mStick.OriginStickVector.y >= mJumpY)
+        mRight = true;
+    }
+
+    public void PlayerMoveRightUp()
+    {
+        mRight = false;
+    }
+
+    public void PlayerMoveLeft()
+    {
+        mLeft = true;
+    }
+
+    public void PlayerMoveLeftUp()
+    {
+        mLeft = false;
+    }
+
+    /// <summary>
+    /// 외부 버튼에서 부를 함수
+    /// </summary>
+    public void PlayerJump()
+    {
+        if(mGrounded)
         {
-            mRB.AddForce(new Vector2(0, mStick.StickVector.y * mJumpForce));
+            Debug.Log("jump");
+            mRB.AddForce(new Vector2(0, mJumpForce));
         }
     }
 }

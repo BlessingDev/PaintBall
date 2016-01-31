@@ -10,13 +10,17 @@ public class UILayer
 
 public class UIDirector : Singletone<UIDirector>
 {
+    #region Variables
+    public bool mUITouched = false;
+
     [SerializeField]
     private Stick[] mSticks = null;
     [SerializeField]
     private UILayer[] mLayers = null;
+    #endregion
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
 	
 	}
