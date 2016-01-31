@@ -81,17 +81,42 @@ public class ShootingDirector : Singletone<ShootingDirector>
     {
         if(mCurBulletNum < mMaxBullet)
         {
-            Bullet bullet = mBullets[mCurBulletIndex];
+            Bullet bullet = null;
+            int idx = mCurBulletIndex;
+            for (int i = 0; i < mMaxBullet; i++)
+            {
+                if(!mBullets[idx].gameObject.activeSelf)
+                {
+                    bullet = mBullets[idx];
+                    mCurBulletIndex = idx;
+                    break;
+                }
+                idx = (idx + 1) % mMaxBullet;
+            }
+
             bullet.gameObject.SetActive(true);
             bullet.transform.position = mShootPos.position;
             bullet.AddForce(mShootDirection * mShootSpeed);
 
-            mCurBulletNum++;
             mCurBulletIndex = (mCurBulletIndex + 1) % mMaxBullet;
+            mCurBulletNum++;
         }
         else
         {
             Debug.LogWarning("All Bullets are Used");
+        }
+    }
+
+    public void BulletDisable(Bullet fBullet)
+    {
+        for(int i = 0; i < mMaxBullet; i++)
+        {
+            if(mBullets[i].Equals(fBullet))
+            {
+                mBullets[i].gameObject.SetActive(false);
+                mCurBulletNum--;
+                break;
+            }
         }
     }
 }

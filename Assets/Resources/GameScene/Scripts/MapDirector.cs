@@ -49,8 +49,6 @@ public class MapDirector : Singletone<MapDirector>
     #endregion
 
     #region CustomFunctions
-
-
     public void LoadMap(string mFileName)
     {
         var reader = FileIODirector.ReadFile("Maps\\" + mFileName + ".mapdata");
@@ -122,5 +120,15 @@ public class MapDirector : Singletone<MapDirector>
                 throw new System.ArgumentException("The Tile Code Isn't Defined", "fTileNum");
         }
     }
+
+    public void SetTileDepth(List<GameObject> fList)
+    {
+        foreach(var iter in fList)
+        {
+            iter.GetComponent<SpriteRenderer>().sortingOrder = 2;
+        }
+    }
+
+
     #endregion
 }
