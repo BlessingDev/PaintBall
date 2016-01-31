@@ -3,6 +3,7 @@ using System.Collections;
 
 public class ShootingDirector : Singletone<ShootingDirector>
 {
+    #region Variables
     public Transform mShootPos = null;
 
     [SerializeField]
@@ -14,6 +15,8 @@ public class ShootingDirector : Singletone<ShootingDirector>
     private Bullet[] mBullets = null;
     private int mCurBulletIndex = 0;
     private int mCurBulletNum = 0;
+    private bool mAimed = false;
+    #endregion
 
     void Start()
     {
@@ -30,14 +33,19 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
     public void update()
     {
-        CheckMouse();
         UpdateBullets();
+    }
+
+    public void lateUpdate()
+    {
+        CheckMouse();
     }
 
     private void CheckMouse()
     {
         if(Input.GetMouseButton(0) && !UIDirector.Instance.mUITouched)
         {
+            mAimed = true;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject arm = PlayerDirector.Instance.Arm;
 
@@ -47,8 +55,9 @@ public class ShootingDirector : Singletone<ShootingDirector>
             mShootDirection = (mousePos - (Vector2)arm.transform.position).normalized;
         }
 
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) && mAimed)
         {
+            mAimed = false;
             ShootBullet();
         }
     }
@@ -79,8 +88,9 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
     private void ShootBullet()
     {
-        if(mCurBulletNum < mMaxBullet)
+        if(mCurBulletNum < mMaxBullet && GameDirector.Instance.mBulletLimit > 0)
         {
+            GameDirector.Instance.mBulletLimit--;
             Bullet bullet = null;
             int idx = mCurBulletIndex;
             for (int i = 0; i < mMaxBullet; i++)

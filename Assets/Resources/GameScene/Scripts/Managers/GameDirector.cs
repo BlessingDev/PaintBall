@@ -5,14 +5,24 @@ using System.Collections.Generic;
 public class GameDirector : Singletone<GameDirector>
 {
     #region Variables
-    [SerializeField]
-    private GameObject mWorld = null;
-
     /// <summary>
     /// 업데이트 할 것인가
     /// </summary>
     public bool mUpdate = true;
+    public int mBulletLimit = 10;
+
+    [SerializeField]
+    private GameObject mWorld = null;
+    private int mDeathCount = 0;
     #endregion
+
+    public int DeathCount
+    {
+        get
+        {
+            return mDeathCount;
+        }
+    }
 
     public GameObject World
     {
@@ -35,6 +45,15 @@ public class GameDirector : Singletone<GameDirector>
         }
     }
 
+    void LateUpdate()
+    {
+        if(mUpdate)
+        {
+            ShootingDirector.Instance.lateUpdate();
+        }
+    }
+
+    #region CustomFunctions
     /// <summary>
     /// 컴퓨터로 시연할 때 사용할 키보드 대체 키 입력
     /// </summary>
@@ -61,4 +80,13 @@ public class GameDirector : Singletone<GameDirector>
             PlayerDirector.Instance.PlayerMoveLeftUp();
         }
     }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Overed");
+
+        mUpdate = false;
+        UIDirector.Instance.SetLayerEnableTouch(0, false);
+    }
+    #endregion
 }

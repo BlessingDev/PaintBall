@@ -10,7 +10,7 @@ public class MapDirector : Singletone<MapDirector>
     private Vector2 mMapSize = Vector2.zero;
     [SerializeField]
     private Vector2 mOffset = Vector2.zero;
-    private List<GameObject> mTiles = new List<GameObject>();
+    private List<Tile> mTiles = new List<Tile>();
     private Dictionary<string, GameObject> mTilePrefabDic = new Dictionary<string, GameObject>();
     #endregion
 
@@ -49,6 +49,7 @@ public class MapDirector : Singletone<MapDirector>
     #endregion
 
     #region CustomFunctions
+
     public void LoadMap(string mFileName)
     {
         var reader = FileIODirector.ReadFile("Maps\\" + mFileName + ".mapdata");
@@ -97,7 +98,10 @@ public class MapDirector : Singletone<MapDirector>
         switch(tileCode)
         {
             case '0':
+
+                return fIndex + 1;
             case '1':
+            case '2':
                 GameObject obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
                 {
