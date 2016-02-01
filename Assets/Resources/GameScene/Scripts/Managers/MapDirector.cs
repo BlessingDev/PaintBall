@@ -61,7 +61,10 @@ public class MapDirector : Singletone<MapDirector>
     /// </summary>
     public void update()
     {
-
+        foreach(var iter in mTiles)
+        {
+            iter.update();
+        }
     }
     #endregion
 
@@ -112,20 +115,123 @@ public class MapDirector : Singletone<MapDirector>
     {
         char tileCode = fData[fIndex];
         Debug.Log("code " + tileCode + "@ index " + fMapIndex);
+        GameObject obj = null;
+        GameObject tile = null;
+        string num = "";
 
         switch(tileCode)
         {
             case '0':
 
                 return fIndex + 1;
+            #region case3
+            case '3':
+                obj = null;
+                tile = null;
+                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
+                {
+                    tile = Instantiate(obj) as GameObject;
+                    Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
+                    tile.transform.position = GetPositionFromMapIndex(fMapIndex);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
+                }
+
+                MoveTile moveTile = tile.GetComponent<MoveTile>();
+                moveTile.mStartPos = tile.transform.position;
+
+                fIndex += 1;
+                num = "";
+                for(; fData[fIndex] != '!'; fIndex++)
+                {
+                    num += fData[fIndex];
+                }
+                fIndex += 1;
+
+                moveTile.mStopTime = (float)System.Convert.ToDouble(num);
+                num = "";
+                
+                Vector2 end = moveTile.mStartPos;
+                if(fData[fIndex] == 'x')
+                {
+                    fIndex += 1;
+                    for (; fData[fIndex] != '!'; fIndex++)
+                    {
+                        num += fData[fIndex];
+                    }
+                    fIndex += 1;
+
+                    float x = (float)System.Convert.ToDouble(num);
+
+                    end.x = x;
+                }
+                else if(fData[fIndex] == 'y')
+                {
+                    fIndex += 1;
+                    for (; fData[fIndex] != '!'; fIndex++)
+                    {
+                        num += fData[fIndex];
+                    }
+                    fIndex += 1;
+
+                    float y = (float)System.Convert.ToDouble(num);
+                    Debug.Log("y " + y);
+
+                    end.y = y;
+                }
+                Debug.Log("end " + end);
+                moveTile.mEndPos = end;
+
+                for (; fData[fIndex] != '!'; fIndex++)
+                {
+                    num += fData[fIndex];
+                }
+                fIndex += 1;
+                Debug.Log("num" + num);
+
+                moveTile.mMoveTime = (float)System.Convert.ToDouble(num);
+
+                mTiles.Add(moveTile);
+
+                return fIndex;
+            #endregion
+            case '4':
+                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
+                {
+                    tile = Instantiate(obj) as GameObject;
+                    Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
+                    tile.transform.position = GetPositionFromMapIndex(fMapIndex);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
+                }
+
+                fIndex += 1;
+                num = "";
+                for (; fData[fIndex] != '!'; fIndex++)
+                {
+                    num += fData[fIndex];
+                }
+                fIndex += 1;
+
+                TriggerReload trigger = tile.GetComponent<TriggerReload>();
+
+                trigger.mReload = System.Convert.ToInt32(num);
+
+                return fIndex;
             case '1':
             case '2':
             case '5':
             case '6':
-                GameObject obj = null;
+                obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
                 {
-                    GameObject tile = Instantiate(obj) as GameObject;
+                    tile = Instantiate(obj) as GameObject;
                     Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
                     tile.transform.position = GetPositionFromMapIndex(fMapIndex);
                     
@@ -146,11 +252,12 @@ public class MapDirector : Singletone<MapDirector>
         }
     }
 
-    public void SetTileDepth(List<GameObject> fList)
+    public void UnveilTiles(List<GameObject> fList)
     {
+        Debug.Log("unveil Tiles");
         foreach(var iter in fList)
         {
-            iter.GetComponent<SpriteRenderer>().sortingOrder = 2;
+            iter.GetComponent<Tile>().OnUnveil();
         }
     }
     

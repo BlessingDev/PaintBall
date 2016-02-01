@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour
         if(other.tag.Equals("Tile"))
         {
             ShootingDirector.Instance.BulletDisable(this);
-            MapDirector.Instance.SetTileDepth(mTriggers.TriggerdObjects);
+            MapDirector.Instance.UnveilTiles(mTriggers.TriggerdObjects);
         }
     }
 

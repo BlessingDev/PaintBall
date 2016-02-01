@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
     private string mTileName = "";
     [SerializeField]
     private UITrigger[] mPlayerStepTrigger = null;
+    [SerializeField]
+    private UITrigger[] mUnveilTrigger = null;
     private bool mPlayerCollision = false;
 
     public bool PlayerCollision
@@ -34,6 +36,11 @@ public class Tile : MonoBehaviour
             mPlayerCollision = false;
         }
     }
+
+    public virtual void update()
+    {
+
+    }
     #endregion
 
     public void OnStepOn()
@@ -41,6 +48,15 @@ public class Tile : MonoBehaviour
         for(int i = 0; i < mPlayerStepTrigger.Length; i++)
         {
             mPlayerStepTrigger[i].Trigger();
+        }
+    }
+
+    public void OnUnveil()
+    {
+        Debug.Log(name + "unveil");
+        for (int i = 0; i < mUnveilTrigger.Length; i++)
+        {
+            mUnveilTrigger[i].Trigger();
         }
     }
 }
