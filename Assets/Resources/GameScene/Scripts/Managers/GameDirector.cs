@@ -84,9 +84,8 @@ public class GameDirector : Singletone<GameDirector>
     public void GameOver()
     {
         Debug.Log("Game Overed");
-
-        mUpdate = false;
-        UIDirector.Instance.SetLayerEnableTouch(0, false);
+        mDeathCount++;
+        MapDirector.Instance.MoveToSavePoint();
     }
     #endregion
 }

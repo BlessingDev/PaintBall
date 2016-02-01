@@ -13,15 +13,18 @@ public class PlayerDirector : Singletone<PlayerDirector>
     [SerializeField]
     private float mSpeed = 10f;
     [SerializeField]
-    private float mJumpForce = 10f;
+    private Vector2 mJumpForce = Vector2.zero;
     [SerializeField]
     private float mJumpY = 30f;
     private GameObject mPlayerPrefab = null;
     private GameObject mPlayer = null;
     private GameObject mArm = null;
     private Rigidbody2D mRB = null;
+    private SpriteRenderer mSprite = null;
+    private Animator mAnimator = null;
     private bool mLeft = false;
     private bool mRight = false;
+    private float mAnimationSpeedRate = (1f / 2f);
     #endregion
 
     #region Capsules
@@ -39,12 +42,29 @@ public class PlayerDirector : Singletone<PlayerDirector>
             return mArm;
         }
     }
+    public SpriteRenderer Sprite
+    {
+        get
+        {
+            return mSprite;
+        }
+    }
     #endregion
 
     #region VirtualFunctions
     void Start()
     {
-        mPlayerPrefab = Resources.Load("GameScene\\Prefabs\\Player") as GameObject;
+        if (mPlayer == null)
+        {
+            mPlayerPrefab = Resources.Load("GameScene\\Prefabs\\Player") as GameObject;
+
+            mPlayer = Instantiate(mPlayerPrefab) as GameObject;
+            mRB = mPlayer.GetComponent<Rigidbody2D>();
+            mArm = mPlayer.transform.GetChild(1).gameObject;
+            ShootingDirector.Instance.mShootPos = mArm.transform.GetChild(0);
+            mSprite = mPlayer.GetComponent<SpriteRenderer>();
+            mAnimator = mPlayer.GetComponent<Animator>();
+        }
     }
 
     /// <summary>
@@ -52,42 +72,72 @@ public class PlayerDirector : Singletone<PlayerDirector>
     /// </summary>
     public void update()
     {
-        if(mPlayer != null)
+        if (mPlayer != null)
         {
             PlayerMove();
+            CheckPlayerY();
+            PlayerAnimations();
         }
     }
     #endregion
 
     public void MakePlayer(Vector2 pos)
     {
-        if (mPlayerPrefab == null)
+        if (mPlayer == null)
+        {
             Start();
+        }
 
-        mPlayer = Instantiate(mPlayerPrefab) as GameObject;
         mPlayer.transform.position = pos;
-
-        mRB = mPlayer.GetComponent<Rigidbody2D>();
-        mArm = mPlayer.transform.GetChild(1).gameObject;
-        ShootingDirector.Instance.mShootPos = mArm.transform.GetChild(0);
     }
 
     private void PlayerMove()
     {
-        if(mLeft)
+        if (mLeft)
         {
+            mPlayer.transform.localEulerAngles = new Vector3(0, 180, 0);
+
             if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
             {
                 mRB.AddForce(new Vector2(-mSpeed, 0));
             }
         }
-        if(mRight)
+        if (mRight)
         {
+            mPlayer.transform.localEulerAngles = new Vector3(0, 0, 0);
+
             if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
             {
                 mRB.AddForce(new Vector2(mSpeed, 0));
             }
         }
+    }
+
+    private void CheckPlayerY()
+    {
+        if (mPlayer.transform.position.y <= MapDirector.Instance.MapDepth)
+        {
+            GameDirector.Instance.GameOver();
+        }
+    }
+
+    private void PlayerAnimations()
+    {
+        if(mGrounded)
+        {
+            mAnimator.SetFloat("Speed", Mathf.Abs(mRB.velocity.x));
+            mAnimator.speed = 1;
+            if (mAnimator.GetFloat("Speed") >= 0.001f)
+            {
+                mAnimator.speed = Mathf.Abs(mRB.velocity.x) * mAnimationSpeedRate;
+            }
+        }
+        else
+        {
+            mAnimator.SetFloat("Speed", 0);
+        }
+
+        mAnimator.SetBool("Grounded", mGrounded);
     }
 
     public void PlayerMoveRight()
@@ -115,10 +165,19 @@ public class PlayerDirector : Singletone<PlayerDirector>
     /// </summary>
     public void PlayerJump()
     {
-        if(mGrounded)
+        if (mGrounded)
         {
+            Vector2 jump = mJumpForce;
+
+            if (mLeft)
+                jump.x *= -1;
+            if (!mLeft && !mRight)
+            {
+                jump.x = 0;
+            }
+
             Debug.Log("jump");
-            mRB.AddForce(new Vector2(0, mJumpForce));
+            mRB.AddForce(jump);
         }
     }
 }
