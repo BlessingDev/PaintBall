@@ -3,17 +3,23 @@ using System.Collections;
 
 public class ShootingDirector : Singletone<ShootingDirector>
 {
+    #region Variables
     public Transform mShootPos = null;
+    public float mDegOffset = 0f;
 
     [SerializeField]
     private float mShootSpeed = 10f;
     [SerializeField]
     private int mMaxBullet = 10;
+    [SerializeField]
     private GameObject mBullet = null;
     private Vector2 mShootDirection = Vector2.zero;
     private Bullet[] mBullets = null;
     private int mCurBulletIndex = 0;
     private int mCurBulletNum = 0;
+    private bool mAimed = false;
+    private int mDegOffsetMul = 1;
+    #endregion
 
     void Start()
     {
@@ -30,25 +36,49 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
     public void update()
     {
-        CheckMouse();
         UpdateBullets();
+    }
+
+    public void lateUpdate()
+    {
+        CheckMouse();
     }
 
     private void CheckMouse()
     {
         if(Input.GetMouseButton(0) && !UIDirector.Instance.mUITouched)
         {
+            mAimed = true;
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             GameObject arm = PlayerDirector.Instance.Arm;
 
-            float deg = Mathf.Atan2(mousePos.y - arm.transform.position.y, mousePos.x - arm.transform.position.x);
-            arm.transform.localEulerAngles = new Vector3(0, 0, deg * Mathf.Rad2Deg + 90);
+            float deg = Mathf.Atan2(mousePos.y - arm.transform.position.y, mousePos.x - arm.transform.position.x) * Mathf.Rad2Deg;
+            arm.transform.localEulerAngles = new Vector3(0, arm.transform.localEulerAngles.y, (deg + mDegOffset) * mDegOffsetMul);
+
+            if(deg< 0)
+            {
+                deg += 360;
+            }
+
+            if(deg >= 90 && deg <= 270)
+            {
+                mDegOffset = 180;
+                mDegOffsetMul = -1;
+                PlayerDirector.Instance.Player.transform.localEulerAngles = new Vector3(0, 180, 0);
+            }
+            else
+            {
+                mDegOffset = 0;
+                mDegOffsetMul = 1;
+                PlayerDirector.Instance.Player.transform.localEulerAngles = new Vector3(0, 0, 0);
+            }
 
             mShootDirection = (mousePos - (Vector2)arm.transform.position).normalized;
         }
 
-        if(Input.GetMouseButtonUp(0))
+        if(Input.GetMouseButtonUp(0) && mAimed)
         {
+            mAimed = false;
             ShootBullet();
         }
     }
@@ -79,8 +109,9 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
     private void ShootBullet()
     {
-        if(mCurBulletNum < mMaxBullet)
+        if(mCurBulletNum < mMaxBullet && GameDirector.Instance.mBulletLimit > 0)
         {
+            GameDirector.Instance.mBulletLimit--;
             Bullet bullet = null;
             int idx = mCurBulletIndex;
             for (int i = 0; i < mMaxBullet; i++)

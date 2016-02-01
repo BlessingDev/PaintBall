@@ -1,0 +1,215 @@
+fileFormatVersion: 2
+guid: f0310d5d59cfdbf4085bec0dfad2b2eb
+timeCreated: 1454300830
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: player_jump_start_0
+    21300002: player_jump_start_1
+    21300004: player_jump_start_2
+    21300006: player_jump_start_3
+    21300008: player_jump_start_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: player_jump_start_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 674
+        width: 250
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -2, y: -139}
+        - {x: 27, y: -36}
+        - {x: 27, y: 101}
+        - {x: 23, y: 102}
+        - {x: -125, y: 102}
+        - {x: -125, y: -30}
+        - {x: -97, y: -38}
+        - {x: -99, y: -68}
+        - {x: -108, y: -145}
+        - {x: -107, y: -175}
+        - {x: 31, y: -175}
+        - {x: 32, y: -174}
+        - {x: 32, y: -149}
+        - {x: 31, y: -145}
+    - name: player_jump_start_1
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 674
+        width: 250
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1, y: -142}
+        - {x: -28, y: -141}
+        - {x: -108, y: -141}
+        - {x: -109, y: -146}
+        - {x: -109, y: -175}
+        - {x: 29, y: -175}
+        - {x: 30, y: -174}
+        - {x: 30, y: -149}
+        - {x: 29, y: -145}
+      - - {x: 85, y: 64}
+        - {x: 85, y: 74}
+        - {x: -51, y: 129}
+        - {x: -59, y: 129}
+        - {x: -66, y: 115}
+        - {x: -106, y: 12}
+        - {x: -106, y: 3}
+        - {x: -81, y: -14}
+        - {x: -100, y: -124}
+        - {x: -95, y: -129}
+        - {x: -27, y: -142}
+        - {x: -5, y: -142}
+        - {x: 14, y: -47}
+        - {x: 37, y: -55}
+        - {x: 56, y: -13}
+    - name: player_jump_start_2
+      rect:
+        serializedVersion: 2
+        x: 500
+        y: 674
+        width: 250
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -20, y: -115}
+        - {x: -7, y: -101}
+        - {x: 50, y: -28}
+        - {x: 121, y: 81}
+        - {x: 121, y: 85}
+        - {x: 119, y: 89}
+        - {x: 4, y: 166}
+        - {x: -3, y: 169}
+        - {x: -9, y: 169}
+        - {x: -85, y: 62}
+        - {x: -125, y: -78}
+        - {x: -125, y: -113}
+        - {x: -79, y: -175}
+        - {x: -7, y: -175}
+        - {x: 8, y: -150}
+        - {x: 7, y: -147}
+        - {x: -10, y: -123}
+    - name: player_jump_start_3
+      rect:
+        serializedVersion: 2
+        x: 765
+        y: 674
+        width: 250
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 18, y: -9}
+        - {x: 54, y: -11}
+        - {x: 62, y: 92}
+        - {x: 62, y: 126}
+        - {x: 60, y: 128}
+        - {x: -61, y: 143}
+        - {x: -94, y: 143}
+        - {x: -107, y: 92}
+        - {x: -107, y: -1}
+        - {x: -94, y: -110}
+        - {x: -94, y: -154}
+        - {x: -13, y: -175}
+        - {x: 11, y: -175}
+        - {x: 54, y: -137}
+        - {x: 60, y: -125}
+        - {x: 42, y: -98}
+    - name: player_jump_start_4
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 325
+        width: 250
+        height: 350
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75, y: -97}
+        - {x: 75, y: -71}
+        - {x: 38, y: 143}
+        - {x: -122, y: 143}
+        - {x: -122, y: -13}
+        - {x: -61, y: -120}
+        - {x: -47, y: -110}
+        - {x: -43, y: -108}
+        - {x: -38, y: -109}
+        - {x: -17, y: -104}
+        - {x: -23, y: -110}
+        - {x: -39, y: -110}
+        - {x: -45, y: -109}
+        - {x: -50, y: -112}
+        - {x: -53, y: -119}
+        - {x: -61, y: -143}
+        - {x: -48, y: -152}
+        - {x: 23, y: -174}
+        - {x: 37, y: -174}
+        - {x: 44, y: -154}
+        - {x: 42, y: -148}
+        - {x: 31, y: -143}
+      - - {x: -125, y: 175}
+        - {x: -125, y: 172}
+        - {x: 9, y: 172}
+        - {x: 11, y: 174}
+        - {x: 11, y: 175}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
