@@ -148,6 +148,7 @@ public class GameDirector : Singletone<GameDirector>
         Debug.Log("Game Cleared");
         mUpdate = false;
         mGameCleared = true;
+        mDeathCount = 0;
     }
     #endregion
 }
