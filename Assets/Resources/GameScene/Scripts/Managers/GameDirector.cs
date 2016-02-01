@@ -14,8 +14,11 @@ public class GameDirector : Singletone<GameDirector>
     [SerializeField]
     private GameObject mWorld = null;
     private int mDeathCount = 0;
+    private string mFileName = "";
+    private bool mGameCleared = false;
     #endregion
 
+    #region Capsules
     public int DeathCount
     {
         get
@@ -23,7 +26,6 @@ public class GameDirector : Singletone<GameDirector>
             return mDeathCount;
         }
     }
-
     public GameObject World
     {
         get
@@ -31,25 +33,60 @@ public class GameDirector : Singletone<GameDirector>
             return mWorld;
         }
     }
+    public string FileName
+    {
+        get
+        {
+            return mFileName;
+        }
+    }
+    #endregion
+
+    void Start()
+    {
+        if (FindObjectsOfType<GameDirector>().Length > 1)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Update()
     {
-        if(mUpdate)
+        if (mUpdate)
         {
-            CameraDirector.Instance.update();
-            UIDirector.Instance.update();
-            PlayerDirector.Instance.update();
-            ShootingDirector.Instance.update();
+            try
+            {
+                CameraDirector.Instance.update();
+                UIDirector.Instance.update();
+                PlayerDirector.Instance.update();
+                ShootingDirector.Instance.update();
 
-            KeyboardInput();
+                KeyboardInput();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning("GameManager.Update() " + ex.Message);
+            }
+
+        }
+        else
+        {
+            CheckGameStart();
         }
     }
 
     void LateUpdate()
     {
-        if(mUpdate)
+        if (mUpdate)
         {
-            ShootingDirector.Instance.lateUpdate();
+            try
+            {
+                ShootingDirector.Instance.lateUpdate();
+            }
+            catch (System.Exception ex)
+            {
+                Debug.LogWarning("GameManager.LateUpdate() " + ex.Message);
+            }
         }
     }
 
@@ -59,26 +96,43 @@ public class GameDirector : Singletone<GameDirector>
     /// </summary>
     private void KeyboardInput()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             PlayerDirector.Instance.PlayerJump();
         }
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             PlayerDirector.Instance.PlayerMoveRight();
         }
-        if(Input.GetKeyUp(KeyCode.RightArrow))
+        if (Input.GetKeyUp(KeyCode.RightArrow))
         {
             PlayerDirector.Instance.PlayerMoveRightUp();
         }
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             PlayerDirector.Instance.PlayerMoveLeft();
         }
-        if(Input.GetKeyUp(KeyCode.LeftArrow))
+        if (Input.GetKeyUp(KeyCode.LeftArrow))
         {
             PlayerDirector.Instance.PlayerMoveLeftUp();
         }
+    }
+
+    private void CheckGameStart()
+    {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("GameScene") && !mGameCleared)
+        {
+            mUpdate = true;
+        }
+        else if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("GameScene"))
+        {
+            mGameCleared = false;
+        }
+    }
+
+    public void SetStage(int fChapter, int fStage)
+    {
+        mFileName = fChapter.ToString() + "_" + fStage.ToString();
     }
 
     public void GameOver()
@@ -86,6 +140,13 @@ public class GameDirector : Singletone<GameDirector>
         Debug.Log("Game Overed");
         mDeathCount++;
         MapDirector.Instance.MoveToSavePoint();
+    }
+
+    public void GameClear()
+    {
+        Debug.Log("Game Cleared");
+        mUpdate = false;
+        mGameCleared = true;
     }
     #endregion
 }

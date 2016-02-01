@@ -52,7 +52,8 @@ public class MapDirector : Singletone<MapDirector>
             mTilePrefabDic.Add(tilePres[i].name, tilePres[i]);
         }
 
-        LoadMap("SampleMap");
+        LoadMap("1_1");
+        //LoadMap(GameDirector.Instance.FileName);
     }
 	
     /// <summary>
@@ -74,6 +75,7 @@ public class MapDirector : Singletone<MapDirector>
         {
             mMapSize.x = System.Convert.ToInt32(reader.ReadLine());
             mMapSize.y = System.Convert.ToInt32(reader.ReadLine());
+            GameDirector.Instance.mBulletLimit = System.Convert.ToInt32(reader.ReadLine());
 
             string data = reader.ReadToEnd();
 
@@ -118,6 +120,7 @@ public class MapDirector : Singletone<MapDirector>
                 return fIndex + 1;
             case '1':
             case '2':
+            case '5':
             case '6':
                 GameObject obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
