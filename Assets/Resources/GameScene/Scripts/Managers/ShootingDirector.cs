@@ -13,6 +13,8 @@ public class ShootingDirector : Singletone<ShootingDirector>
     private int mMaxBullet = 10;
     [SerializeField]
     private GameObject mBullet = null;
+    [SerializeField]
+    private UnityEngine.UI.Image mLine = null;
     private Vector2 mShootDirection = Vector2.zero;
     private Bullet[] mBullets = null;
     private int mCurBulletIndex = 0;
@@ -54,6 +56,9 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
             float deg = Mathf.Atan2(mousePos.y - arm.transform.position.y, mousePos.x - arm.transform.position.x) * Mathf.Rad2Deg;
             arm.transform.localEulerAngles = new Vector3(0, arm.transform.localEulerAngles.y, (deg + mDegOffset) * mDegOffsetMul);
+            mLine.gameObject.SetActive(true);
+            mLine.transform.position = Camera.main.WorldToScreenPoint(mShootPos.position);
+            mLine.transform.localEulerAngles = new Vector3(mLine.transform.localEulerAngles.x, mLine.transform.localEulerAngles.y, deg);
 
             if(deg< 0)
             {
@@ -79,6 +84,7 @@ public class ShootingDirector : Singletone<ShootingDirector>
         if(Input.GetMouseButtonUp(0) && mAimed)
         {
             mAimed = false;
+            mLine.gameObject.SetActive(false);
             ShootBullet();
         }
     }

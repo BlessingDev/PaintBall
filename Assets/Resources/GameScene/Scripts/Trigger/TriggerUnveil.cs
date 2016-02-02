@@ -13,6 +13,6 @@ public class TriggerUnveil : UITrigger
 
     public override void Trigger()
     {
-        mSprite.sortingOrder = 2;
+        mSprite.sortingOrder = 3;
     }
 }
