@@ -19,6 +19,7 @@ public class Bullet : MonoBehaviour
         {
             ShootingDirector.Instance.BulletDisable(this);
             MapDirector.Instance.UnveilTiles(mTriggers.TriggerdObjects);
+            mTriggers.ClearObjs();
         }
     }
 

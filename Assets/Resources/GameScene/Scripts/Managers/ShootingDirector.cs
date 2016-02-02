@@ -15,6 +15,8 @@ public class ShootingDirector : Singletone<ShootingDirector>
     private GameObject mBullet = null;
     [SerializeField]
     private UnityEngine.UI.Image mLine = null;
+    [SerializeField]
+    private UnityEngine.UI.Image mPoint = null;
     private Vector2 mShootDirection = Vector2.zero;
     private Bullet[] mBullets = null;
     private int mCurBulletIndex = 0;
@@ -60,6 +62,20 @@ public class ShootingDirector : Singletone<ShootingDirector>
             mLine.transform.position = Camera.main.WorldToScreenPoint(mShootPos.position);
             mLine.transform.localEulerAngles = new Vector3(mLine.transform.localEulerAngles.x, mLine.transform.localEulerAngles.y, deg);
 
+            mShootDirection = (mousePos - (Vector2)mShootPos.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(mShootPos.position, mShootDirection, 100f, (1 << LayerMask.NameToLayer("Tile")));
+
+            if(hit.collider != null)
+            {
+                Debug.Log("hit");
+                mPoint.gameObject.SetActive(true);
+                mPoint.transform.position = Camera.main.WorldToScreenPoint(hit.point);
+            }
+            else
+            {
+                mPoint.gameObject.SetActive(false);
+            }
+
             if(deg< 0)
             {
                 deg += 360;
@@ -78,7 +94,6 @@ public class ShootingDirector : Singletone<ShootingDirector>
                 PlayerDirector.Instance.Player.transform.localEulerAngles = new Vector3(0, 0, 0);
             }
 
-            mShootDirection = (mousePos - (Vector2)arm.transform.position).normalized;
         }
 
         if(Input.GetMouseButtonUp(0) && mAimed)

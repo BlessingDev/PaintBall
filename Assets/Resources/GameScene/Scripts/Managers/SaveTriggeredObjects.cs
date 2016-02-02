@@ -27,4 +27,9 @@ public class SaveTriggeredObjects : MonoBehaviour
         if (other.tag.Equals(mTag))
             mTriggeredObjects.Remove(other.gameObject);
     }
+
+    public void ClearObjs()
+    {
+        mTriggeredObjects.Clear();
+    }
 }
