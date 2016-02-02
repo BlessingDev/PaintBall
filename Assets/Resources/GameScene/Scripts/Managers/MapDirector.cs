@@ -14,6 +14,7 @@ public class MapDirector : Singletone<MapDirector>
     private Dictionary<string, GameObject> mTilePrefabDic = new Dictionary<string, GameObject>();
     private Vector2 mCheckPoint = Vector2.zero;
     private float mMapDepth = 0f;
+    private float mReveilTime = 1f;
     #endregion
 
     #region Capsules
@@ -36,6 +37,13 @@ public class MapDirector : Singletone<MapDirector>
         get
         {
             return mMapDepth;
+        }
+    }
+    public float ReveilTime
+    {
+        get
+        {
+            return mReveilTime;
         }
     }
     #endregion
@@ -222,6 +230,7 @@ public class MapDirector : Singletone<MapDirector>
                 TriggerReload trigger = tile.GetComponent<TriggerReload>();
 
                 trigger.mReload = System.Convert.ToInt32(num);
+                mTiles.Add(tile.GetComponent<Tile>());
 
                 return fIndex;
             case '1':
@@ -241,6 +250,7 @@ public class MapDirector : Singletone<MapDirector>
                     Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
                 }
 
+                mTiles.Add(tile.GetComponent<Tile>());
                 return fIndex + 1;
             case '@':
                 PlayerDirector.Instance.MakePlayer(GetPositionFromMapIndex(fMapIndex));

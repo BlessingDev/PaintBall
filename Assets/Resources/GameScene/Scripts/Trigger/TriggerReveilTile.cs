@@ -1,18 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TriggerUnveil : UITrigger
+public class TriggerReveilTile : UITrigger
 {
-    [SerializeField]
     private SpriteRenderer mSprite = null;
 
-    void Start()
+	// Use this for initialization
+	void Start ()
     {
         mSprite = GetComponent<SpriteRenderer>();
-    }
+	}
 
     public override void Trigger()
     {
-        mSprite.sortingOrder = 2;
+        mSprite.sortingOrder = 0;
     }
 }
