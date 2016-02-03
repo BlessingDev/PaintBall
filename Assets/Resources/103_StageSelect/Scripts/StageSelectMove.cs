@@ -9,6 +9,8 @@ public class StageSelectMove : MonoBehaviour {
 
     Vector3 StageVec;
     float StageMoveNum = 0;
+    [SerializeField]
+    private float mMoveX = 450f;
     
     void Start () {
         StageVec = GameObject.Find("StageSelect").transform.localPosition;
@@ -43,7 +45,7 @@ public class StageSelectMove : MonoBehaviour {
         if (StageMoveRChek == true)
         {
             Debug.Log("StageChek");
-            if(StageVec.x >= StageMoveNum - 450)
+            if(StageVec.x >= StageMoveNum - mMoveX)
             {
                 Debug.Log("If_OK");
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x -= Speed * Time.deltaTime, StageVec.y, StageVec.z);
@@ -57,7 +59,7 @@ public class StageSelectMove : MonoBehaviour {
         }
         else if(StageMoveLChek == true)
         {
-            if (StageVec.x <= StageMoveNum + 450)
+            if (StageVec.x <= StageMoveNum + mMoveX)
             {
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x += Speed * Time.deltaTime, StageVec.y, StageVec.z);
             }

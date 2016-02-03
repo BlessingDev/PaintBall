@@ -1,14 +1,11 @@
 fileFormatVersion: 2
-guid: 7768ef45b169cd54ca44b3a984557292
-timeCreated: 1454411882
+guid: 41aba9e0b45877e4990f0a2dc8669c56
+timeCreated: 1454461118
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: blockpainting_blue_reveil_0
-    21300002: blockpainting_blue_reveil_1
-    21300004: blockpainting_blue_reveil_2
-    21300006: blockpainting_blue_reveil_3
-    21300008: blockpainting_blue_reveil_4
+    21300000: blockpainting_red_normal_0
+    21300002: blockpainting_red_normal_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,11 +52,11 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: blockpainting_blue_reveil_0
+    - name: blockpainting_red_normal_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 412
+        y: 156
         width: 100
         height: 100
       alignment: 0
@@ -70,56 +67,11 @@ TextureImporter:
         - {x: -50, y: -50}
         - {x: 50, y: -50}
         - {x: 50, y: 50}
-    - name: blockpainting_blue_reveil_1
+    - name: blockpainting_red_normal_1
       rect:
         serializedVersion: 2
         x: 100
-        y: 412
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -50, y: 50}
-        - {x: -50, y: -50}
-        - {x: 50, y: -50}
-        - {x: 50, y: 50}
-    - name: blockpainting_blue_reveil_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 412
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -50, y: 50}
-        - {x: -50, y: -50}
-        - {x: 50, y: -50}
-        - {x: 50, y: 50}
-    - name: blockpainting_blue_reveil_3
-      rect:
-        serializedVersion: 2
-        x: 300
-        y: 412
-        width: 100
-        height: 100
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -50, y: 50}
-        - {x: -50, y: -50}
-        - {x: 50, y: -50}
-        - {x: 50, y: 50}
-    - name: blockpainting_blue_reveil_4
-      rect:
-        serializedVersion: 2
-        x: 400
-        y: 412
+        y: 156
         width: 100
         height: 100
       alignment: 0

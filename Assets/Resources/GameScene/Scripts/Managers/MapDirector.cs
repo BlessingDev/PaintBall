@@ -15,6 +15,7 @@ public class MapDirector : Singletone<MapDirector>
     private Vector2 mCheckPoint = Vector2.zero;
     private float mMapDepth = 0f;
     private float mReveilTime = 1f;
+    private GameObject mExit = null;
     #endregion
 
     #region Capsules
@@ -23,6 +24,13 @@ public class MapDirector : Singletone<MapDirector>
         get
         {
             return mMapSize;
+        }
+    }
+    public Vector2 TileSize
+    {
+        get
+        {
+            return mTileSize;
         }
     }
     public Vector2 CheckPoint
@@ -46,6 +54,13 @@ public class MapDirector : Singletone<MapDirector>
             return mReveilTime;
         }
     }
+    public GameObject ExitTile
+    {
+        get
+        {
+            return mExit;
+        }
+    }
     #endregion
 
     #region VirtualFunctions
@@ -59,9 +74,6 @@ public class MapDirector : Singletone<MapDirector>
         {
             mTilePrefabDic.Add(tilePres[i].name, tilePres[i]);
         }
-
-        LoadMap("1_1");
-        //LoadMap(GameDirector.Instance.FileName);
     }
 	
     /// <summary>
@@ -233,9 +245,25 @@ public class MapDirector : Singletone<MapDirector>
                 mTiles.Add(tile.GetComponent<Tile>());
 
                 return fIndex;
+            case '5':
+                obj = null;
+                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
+                {
+                    tile = Instantiate(obj) as GameObject;
+                    Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
+                    tile.transform.position = GetPositionFromMapIndex(fMapIndex);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
+                }
+
+                mExit = tile;
+                mTiles.Add(tile.GetComponent<Tile>());
+                return fIndex + 1;
             case '1':
             case '2':
-            case '5':
             case '6':
                 obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))

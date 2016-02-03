@@ -9,6 +9,14 @@ public class CameraDirector : Singletone<CameraDirector>
     public float mFollowSpeed = 30f;
     public Vector2 mOffset = Vector2.zero;
 
+    public float Distance
+    {
+        get
+        {
+            return Vector2.Distance(PlayerDirector.Instance.Player.transform.position, mCamera.transform.position);
+        }
+    }
+
 	// Use this for initialization
 	void Start ()
     {

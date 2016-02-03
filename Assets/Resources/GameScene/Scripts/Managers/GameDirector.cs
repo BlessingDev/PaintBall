@@ -48,6 +48,10 @@ public class GameDirector : Singletone<GameDirector>
             Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
+
+        mFileName = "1_1";
+        MapDirector.Instance.LoadMap(mFileName);
+        EffectDirector.Instance.StartEffect();
     }
 
     void Update()
@@ -61,6 +65,7 @@ public class GameDirector : Singletone<GameDirector>
                 PlayerDirector.Instance.update();
                 ShootingDirector.Instance.update();
                 MapDirector.Instance.update();
+                EffectDirector.Instance.update();
 
                 KeyboardInput();
             }

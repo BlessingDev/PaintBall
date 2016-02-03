@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 878a4a4cdff91bf4d97a9a9087cb4921
-timeCreated: 1454415217
+guid: b381ebae1a09ec547b026b69c31ab260
+timeCreated: 1454461331
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,7 @@ TextureImporter:
     21300004: blockpainting_yellow_unveil_2
     21300006: blockpainting_yellow_unveil_3
     21300008: blockpainting_yellow_unveil_4
+    21300010: blockpainting_yellow_unveil_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -120,6 +121,21 @@ TextureImporter:
         serializedVersion: 2
         x: 400
         y: 412
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -50, y: 50}
+        - {x: -50, y: -50}
+        - {x: 50, y: -50}
+        - {x: 50, y: 50}
+    - name: blockpainting_yellow_unveil_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 312
         width: 100
         height: 100
       alignment: 0

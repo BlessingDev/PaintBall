@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 588d01d0cd8429f438c9f6618329b846
-timeCreated: 1454412247
+guid: 780d67a7e81fe6a418450042a4e5a901
+timeCreated: 1454460882
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -9,6 +9,7 @@ TextureImporter:
     21300004: blockpainting_green_reveil_2
     21300006: blockpainting_green_reveil_3
     21300008: blockpainting_green_reveil_4
+    21300010: blockpainting_green_reveil_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -120,6 +121,21 @@ TextureImporter:
         serializedVersion: 2
         x: 400
         y: 412
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -50, y: 50}
+        - {x: -50, y: -50}
+        - {x: 50, y: -50}
+        - {x: 50, y: 50}
+    - name: blockpainting_green_reveil_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 312
         width: 100
         height: 100
       alignment: 0

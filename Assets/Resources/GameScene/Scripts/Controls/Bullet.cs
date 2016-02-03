@@ -6,6 +6,14 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D mRB = null;
     private SaveTriggeredObjects mTriggers = null;
 
+    public SaveTriggeredObjects TriggerObjs
+    {
+        get
+        {
+            return mTriggers;
+        }
+    }
+
     public void Start()
     {
         Debug.Log("bullet start");
@@ -18,7 +26,7 @@ public class Bullet : MonoBehaviour
         if(other.tag.Equals("Tile"))
         {
             ShootingDirector.Instance.BulletDisable(this);
-            MapDirector.Instance.UnveilTiles(mTriggers.TriggerdObjects);
+                MapDirector.Instance.UnveilTiles(mTriggers.TriggerdObjects);
             mTriggers.ClearObjs();
         }
     }
