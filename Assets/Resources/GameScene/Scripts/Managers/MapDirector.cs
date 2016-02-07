@@ -16,6 +16,9 @@ public class MapDirector : Singletone<MapDirector>
     private float mMapDepth = 0f;
     private float mReveilTime = 1f;
     private GameObject mExit = null;
+    private int mStar3 = 0;
+    private int mStar2 = 0;
+    private int mStar1 = 0;
     #endregion
 
     #region Capsules
@@ -99,6 +102,9 @@ public class MapDirector : Singletone<MapDirector>
             mMapSize.x = System.Convert.ToInt32(reader.ReadLine());
             mMapSize.y = System.Convert.ToInt32(reader.ReadLine());
             GameDirector.Instance.mBulletLimit = System.Convert.ToInt32(reader.ReadLine());
+            mStar3 = System.Convert.ToInt32(reader.ReadLine());
+            mStar2 = System.Convert.ToInt32(reader.ReadLine());
+            mStar1 = System.Convert.ToInt32(reader.ReadLine());
 
             string data = reader.ReadToEnd();
 
@@ -309,6 +315,20 @@ public class MapDirector : Singletone<MapDirector>
         {
             Debug.LogWarning(ex.Message);
         }
+    }
+
+    public int GetScore()
+    {
+        int death = GameDirector.Instance.DeathCount;
+
+        if (death <= mStar3)
+            return 3;
+        else if (death <= mStar2)
+            return 2;
+        else if (death <= mStar1)
+            return 1;
+        else
+            return 0;
     }
     #endregion
 }

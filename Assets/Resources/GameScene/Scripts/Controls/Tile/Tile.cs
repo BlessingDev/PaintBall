@@ -13,10 +13,20 @@ public class Tile : MonoBehaviour
     [SerializeField]
     private UITrigger[] mPlayerStepTrigger = null;
     [SerializeField]
+    private UITrigger[] mEffectAnimationEndTrigger = null;
+    [SerializeField]
     private UITrigger[] mUnveilTrigger = null;
     [SerializeField]
     private UITrigger[] mReveilTrigger = null;
+    [SerializeField]
+    private TileEffectAnimation mTileAnimation = null;
+    [SerializeField]
+    private bool mPauseOnEvent = false;
     private bool mPlayerCollision = false;
+    /// <summary>
+    /// 해당 타일 위에 올라선 것으로 인정할 좌표 차이
+    /// </summary>
+    private float mStepOnError = 0.1f;
     #endregion
 
     #region Capsules
@@ -32,7 +42,17 @@ public class Tile : MonoBehaviour
     #region VirtualFunctions
     void Start()
     {
+        Animator ani = GetComponent<Animator>();
+
+        if (ani != null)
+            GameDirector.Instance.mAnimators.Add(ani);
+
         mReveilTime = MapDirector.Instance.ReveilTime;
+        if(mTileAnimation != null)
+        {
+            mTileAnimation.mTriggers = mEffectAnimationEndTrigger;
+            mTileAnimation.mPausedOnStart = mPauseOnEvent;
+        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -40,7 +60,6 @@ public class Tile : MonoBehaviour
         if(other.gameObject.tag.Equals("Player"))
         {
             mPlayerCollision = true;
-            OnStepOn();
         }
     }
 
@@ -62,11 +81,35 @@ public class Tile : MonoBehaviour
                 OnReveil();
             }
         }
+
+        CheckStepOn();
     }
     #endregion
 
+    #region CustomFunctions
+    private void CheckStepOn()
+    {
+        if(mPlayerCollision)
+        {
+            if(Mathf.Abs(transform.position.x - PlayerDirector.Instance.Player.transform.position.x) <= mStepOnError)
+            {
+                OnStepOn();
+                mPlayerCollision = false;
+            }
+        }
+    }
+
     public virtual void OnStepOn()
     {
+        if(mTileAnimation != null)
+        {
+            mTileAnimation.OnStepOn();
+        }
+        else
+        {
+            Debug.Log(name + " TileAnimation is null");
+        }
+
         for(int i = 0; i < mPlayerStepTrigger.Length; i++)
         {
             mPlayerStepTrigger[i].Trigger();
@@ -93,4 +136,5 @@ public class Tile : MonoBehaviour
             mReveilTrigger[i].Trigger();
         }
     }
+    #endregion
 }

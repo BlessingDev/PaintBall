@@ -8,14 +8,16 @@ public class GameDirector : Singletone<GameDirector>
     /// <summary>
     /// 업데이트 할 것인가
     /// </summary>
-    public bool mUpdate = true;
     public int mBulletLimit = 10;
+    public List<Animator> mAnimators = new List<Animator>();
+    public bool mUpdate = true;
 
     [SerializeField]
     private GameObject mWorld = null;
     private int mDeathCount = 0;
     private string mFileName = "";
     private bool mGameCleared = false;
+    private int mScore = 0;
     #endregion
 
     #region Capsules
@@ -50,8 +52,15 @@ public class GameDirector : Singletone<GameDirector>
         DontDestroyOnLoad(gameObject);
 
         mFileName = "1_1";
-        MapDirector.Instance.LoadMap(mFileName);
-        EffectDirector.Instance.StartEffect();
+
+        mUpdate = true;
+        //MapDirector가 있다면
+        if(MapDirector.Instance != null)
+            MapDirector.Instance.LoadMap(mFileName);
+
+        //EffectDirector가 있다면
+        if(EffectDirector.Instance != null)
+            EffectDirector.Instance.StartEffect();
     }
 
     void Update()
@@ -74,10 +83,6 @@ public class GameDirector : Singletone<GameDirector>
                 Debug.LogWarning("GameManager.Update() " + ex.Message);
             }
 
-        }
-        else
-        {
-            CheckGameStart();
         }
     }
 
@@ -124,15 +129,11 @@ public class GameDirector : Singletone<GameDirector>
         }
     }
 
-    private void CheckGameStart()
+    private void SetAnimator(bool able)
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("GameScene") && !mGameCleared)
+        foreach(var iter in mAnimators)
         {
-            mUpdate = true;
-        }
-        else if (!UnityEngine.SceneManagement.SceneManager.GetActiveScene().name.Equals("GameScene"))
-        {
-            mGameCleared = false;
+            iter.enabled = able;
         }
     }
 
@@ -150,10 +151,23 @@ public class GameDirector : Singletone<GameDirector>
 
     public void GameClear()
     {
-        Debug.Log("Game Cleared");
+        Debug.Log("Game Cleared ");
+        mScore = MapDirector.Instance.GetScore();
         mUpdate = false;
         mGameCleared = true;
         mDeathCount = 0;
+    }
+
+    public void GamePause()
+    {
+        mUpdate = false;
+        SetAnimator(false);
+    }
+
+    public void GameResume()
+    {
+        mUpdate = true;
+        SetAnimator(true);
     }
     #endregion
 }

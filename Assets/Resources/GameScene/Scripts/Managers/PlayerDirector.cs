@@ -64,6 +64,8 @@ public class PlayerDirector : Singletone<PlayerDirector>
             ShootingDirector.Instance.mShootPos = mArm.transform.GetChild(0);
             mSprite = mPlayer.GetComponent<SpriteRenderer>();
             mAnimator = mPlayer.GetComponent<Animator>();
+
+            GameDirector.Instance.mAnimators.Add(mAnimator);
         }
     }
 
