@@ -11,10 +11,12 @@ public class StageSelectMove : MonoBehaviour {
     float StageMoveNum = 0;
     float StagNum = 432;
     public Canvas can = null;
-
+    float ScreenWidth = 0;
 
     void Start () {
         StageVec = GameObject.Find("StageSelect").transform.localPosition;
+        StagNum = Screen.width;
+        Speed = Screen.width;
 	}
 
     public void RightMove()
