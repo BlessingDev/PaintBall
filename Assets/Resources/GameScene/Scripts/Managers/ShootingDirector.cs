@@ -130,9 +130,9 @@ public class ShootingDirector : Singletone<ShootingDirector>
 
     private void ShootBullet()
     {
-        if(mCurBulletNum < mMaxBullet && GameDirector.Instance.mBulletLimit > 0)
+        if(mCurBulletNum < mMaxBullet && GameDirector.Instance.BulletLimit > 0)
         {
-            GameDirector.Instance.mBulletLimit--;
+            GameDirector.Instance.BulletUsed();
             Bullet bullet = null;
             int idx = mCurBulletIndex;
             for (int i = 0; i < mMaxBullet; i++)

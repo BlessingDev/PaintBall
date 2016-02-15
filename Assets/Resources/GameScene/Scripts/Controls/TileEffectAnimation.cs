@@ -25,7 +25,7 @@ public class TileEffectAnimation : MonoBehaviour
         mAnimator.SetBool("Effect", true);
         
         if (mPausedOnStart)
-            GameDirector.Instance.mUpdate = false;
+            GameDirector.Instance.IsUpdate = false;
     }
 
     void EffectEnd()
@@ -35,7 +35,7 @@ public class TileEffectAnimation : MonoBehaviour
             mTriggers[i].Trigger();
         }
         if (mPausedOnStart)
-            GameDirector.Instance.mUpdate = true;
+            GameDirector.Instance.IsUpdate = true;
 
         mAnimator.SetBool("Effect", false);
         mRenderer.enabled = false;

@@ -15,7 +15,7 @@ public class TriggerReload : UITrigger
 
     public override void Trigger()
     {
-        GameDirector.Instance.mBulletLimit += mReload;
+        GameDirector.Instance.BulletReload();
 
         mReload = 0;
         mSprite.sprite = mNormalSprite;

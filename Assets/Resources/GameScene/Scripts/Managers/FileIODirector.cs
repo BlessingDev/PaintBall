@@ -21,4 +21,17 @@ public class FileIODirector
 
         return reader;
     }
+
+    public static StreamWriter WriteFile(string fFileName)
+    {
+        StreamWriter writer = null;
+        string path = System.Environment.CurrentDirectory + "\\Assets\\Resources\\" + fFileName;
+
+        writer = new StreamWriter(path);
+
+        if(writer == null)
+            Debug.LogWarning("Couldn't Open Write At " + path);
+
+        return writer;
+    }
 }

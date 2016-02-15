@@ -13,6 +13,9 @@ public class CameraDirector : Singletone<CameraDirector>
     {
         get
         {
+            if (mCamera == null)
+                Start();
+
             return Vector2.Distance(PlayerDirector.Instance.Player.transform.position, mCamera.transform.position);
         }
     }

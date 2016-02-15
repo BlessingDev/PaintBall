@@ -22,6 +22,8 @@ public class Tile : MonoBehaviour
     private TileEffectAnimation mTileAnimation = null;
     [SerializeField]
     private bool mPauseOnEvent = false;
+    [SerializeField]
+    private bool mReveilOn = true;
     private bool mPlayerCollision = false;
     /// <summary>
     /// 해당 타일 위에 올라선 것으로 인정할 좌표 차이
@@ -73,12 +75,15 @@ public class Tile : MonoBehaviour
 
     public virtual void update()
     {
-        if(mUnveiled)
+        if(mReveilOn)
         {
-            mTime += Time.deltaTime;
-            if(mTime >= mReveilTime)
+            if (mUnveiled)
             {
-                OnReveil();
+                mTime += Time.deltaTime;
+                if (mTime >= mReveilTime)
+                {
+                    OnReveil();
+                }
             }
         }
 
@@ -101,6 +106,7 @@ public class Tile : MonoBehaviour
 
     public virtual void OnStepOn()
     {
+        Debug.Log("StepOn " + name);
         if(mTileAnimation != null)
         {
             mTileAnimation.OnStepOn();

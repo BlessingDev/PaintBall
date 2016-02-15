@@ -21,6 +21,8 @@ public class MoveTile : Tile
     /// </summary>
     public override void update()
     {
+        base.update();
+
         if(mMove)
         {
             DelayAndMove();

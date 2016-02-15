@@ -19,6 +19,7 @@ public class MapDirector : Singletone<MapDirector>
     private int mStar3 = 0;
     private int mStar2 = 0;
     private int mStar1 = 0;
+    private bool mInitialized = false;
     #endregion
 
     #region Capsules
@@ -70,12 +71,17 @@ public class MapDirector : Singletone<MapDirector>
     // Use this for initialization
     void Start ()
     {
-        var tilePres =  Resources.LoadAll<GameObject>("GameScene/Prefabs/TilePrefabs/");
-        Debug.Log("tilePres " + tilePres.Length);
-
-        for(int i = 0; i < tilePres.Length; i++)
+        if(!mInitialized)
         {
-            mTilePrefabDic.Add(tilePres[i].name, tilePres[i]);
+            mInitialized = true;
+            var tilePres = Resources.LoadAll<GameObject>("GameScene/Prefabs/TilePrefabs/");
+            Debug.Log("tilePres " + tilePres.Length);
+
+            for (int i = 0; i < tilePres.Length; i++)
+            {
+                Debug.Log("tile name " + tilePres[i].name + " saved");
+                mTilePrefabDic.Add(tilePres[i].name, tilePres[i]);
+            }
         }
     }
 	
@@ -95,13 +101,16 @@ public class MapDirector : Singletone<MapDirector>
 
     public void LoadMap(string mFileName)
     {
+        if (!mInitialized)
+            Start();
+
         var reader = FileIODirector.ReadFile("Maps\\" + mFileName + ".mapdata");
 
         if(reader != null)
         {
             mMapSize.x = System.Convert.ToInt32(reader.ReadLine());
             mMapSize.y = System.Convert.ToInt32(reader.ReadLine());
-            GameDirector.Instance.mBulletLimit = System.Convert.ToInt32(reader.ReadLine());
+            GameDirector.Instance.BulletLimit = System.Convert.ToInt32(reader.ReadLine());
             mStar3 = System.Convert.ToInt32(reader.ReadLine());
             mStar2 = System.Convert.ToInt32(reader.ReadLine());
             mStar1 = System.Convert.ToInt32(reader.ReadLine());
@@ -271,6 +280,8 @@ public class MapDirector : Singletone<MapDirector>
             case '1':
             case '2':
             case '6':
+            case '7':
+            case '8':
                 obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
                 {

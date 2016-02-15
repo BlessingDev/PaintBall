@@ -32,6 +32,9 @@ public class PlayerDirector : Singletone<PlayerDirector>
     {
         get
         {
+            if (mPlayer == null)
+                Start();
+
             return mPlayer;
         }
     }
@@ -39,6 +42,9 @@ public class PlayerDirector : Singletone<PlayerDirector>
     {
         get
         {
+            if (mPlayer == null)
+                Start();
+
             return mArm;
         }
     }
@@ -46,6 +52,9 @@ public class PlayerDirector : Singletone<PlayerDirector>
     {
         get
         {
+            if (mPlayer == null)
+                Start();
+
             return mSprite;
         }
     }
@@ -93,24 +102,39 @@ public class PlayerDirector : Singletone<PlayerDirector>
         mPlayer.transform.position = pos;
     }
 
+    private void AnimatorSpeedCheck()
+    {
+        if (mGrounded)
+            mAnimator.speed = 1f;
+    }
+
     private void PlayerMove()
     {
+        float maxSpeed = mMaxSpeed;
+        float speed = mSpeed;
+
+        if (!mGrounded)
+        {
+            speed *= 0.5f;
+            maxSpeed *= 0.5f;
+        }
+
         if (mLeft)
         {
             mPlayer.transform.localEulerAngles = new Vector3(0, 180, 0);
 
-            if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
+            if (Mathf.Abs(mRB.velocity.x) <= maxSpeed)
             {
-                mRB.AddForce(new Vector2(-mSpeed, 0));
+                mRB.AddForce(new Vector2(-speed, 0));
             }
         }
         if (mRight)
         {
             mPlayer.transform.localEulerAngles = new Vector3(0, 0, 0);
 
-            if (Mathf.Abs(mRB.velocity.x) <= mMaxSpeed && mGrounded)
+            if (Mathf.Abs(mRB.velocity.x) <= maxSpeed)
             {
-                mRB.AddForce(new Vector2(mSpeed, 0));
+                mRB.AddForce(new Vector2(speed, 0));
             }
         }
     }
@@ -171,15 +195,17 @@ public class PlayerDirector : Singletone<PlayerDirector>
         {
             Vector2 jump = mJumpForce;
 
-            if (mLeft)
-                jump.x *= -1;
-            if (!mLeft && !mRight)
-            {
-                jump.x = 0;
-            }
-
             Debug.Log("jump");
             mRB.AddForce(jump);
         }
+    }
+
+    public void PlayerDoubleJump()
+    {
+        mRB.velocity = Vector3.zero;
+        Vector2 jump = mJumpForce * 1.7f;
+
+        Debug.Log("jump");
+        mRB.AddForce(jump);
     }
 }

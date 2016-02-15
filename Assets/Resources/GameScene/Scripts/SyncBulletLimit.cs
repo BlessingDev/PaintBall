@@ -14,6 +14,6 @@ public class SyncBulletLimit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        mText.text = GameDirector.Instance.mBulletLimit.ToString();
+        mText.text = GameDirector.Instance.BulletLimit.ToString();
 	}
 }

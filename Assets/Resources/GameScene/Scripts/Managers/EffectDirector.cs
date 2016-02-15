@@ -21,20 +21,28 @@ public class EffectDirector : Singletone<EffectDirector>
         mBulletEffects = new PaintEffect[mMaxBulletEffect];
     }
 
-    public void update()
+    void Update()
     {
         if (mStartEffect)
             StartEffectUpdate();
+    }
+
+    public void update()
+    {
+
     }
     #endregion
 
     #region CustomFunctions
     private void StartEffectUpdate()
     {
-        if (CameraDirector.Instance.Distance <= 0.01f)
+        Debug.Log("StarEffectUpdate");
+        CameraDirector.Instance.update();
+        if (CameraDirector.Instance.Distance <= 0.2f)
         {
             mStartEffect = false;
             CameraDirector.Instance.mFollowSpeed = mOriCameraSpeed;
+            GameDirector.Instance.GameResume();
         }
     }
 
@@ -74,6 +82,7 @@ public class EffectDirector : Singletone<EffectDirector>
         Camera.main.transform.position = MapDirector.Instance.ExitTile.transform.position;
         mOriCameraSpeed = CameraDirector.Instance.mFollowSpeed;
         CameraDirector.Instance.mFollowSpeed = 0.003f * CameraDirector.Instance.Distance;
+        GameDirector.Instance.GamePause();
 
         mStartEffect = true;
     }
