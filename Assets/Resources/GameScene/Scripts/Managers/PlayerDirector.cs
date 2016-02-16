@@ -208,4 +208,9 @@ public class PlayerDirector : Singletone<PlayerDirector>
         Debug.Log("jump");
         mRB.AddForce(jump);
     }
+
+    public void StopPlayer()
+    {
+        mRB.velocity = Vector3.zero;
+    }
 }

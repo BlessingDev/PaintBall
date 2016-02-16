@@ -268,6 +268,7 @@ public class GameDirector : Singletone<GameDirector>
     public void GameClear()
     {
         Debug.Log("Game Cleared");
+        PlayerDirector.Instance.StopPlayer();
         mScore = MapDirector.Instance.GetScore();
         Debug.Log("Score " + mScore);
         int score = 0;
@@ -291,6 +292,7 @@ public class GameDirector : Singletone<GameDirector>
 
     public void GamePause()
     {
+        PlayerDirector.Instance.StopPlayer();
         mUpdate = false;
         SetAnimator(false);
     }

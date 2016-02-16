@@ -12,7 +12,10 @@ public class EffectDirector : Singletone<EffectDirector>
     /// 시작 이펙트가 실행 중인가
     /// </summary>
     private bool mStartEffect = false;
+    private float mStartEffectTime = 1f;
     private float mOriCameraSpeed = 0f;
+    private float mCamStartSpeed = 0f;
+    private float mTime = 0f;
     #endregion
 
     #region VirtualFunctions
@@ -38,7 +41,12 @@ public class EffectDirector : Singletone<EffectDirector>
     {
         Debug.Log("StarEffectUpdate");
         CameraDirector.Instance.update();
-        if (CameraDirector.Instance.Distance <= 0.2f)
+        
+        mTime += Time.deltaTime;
+        float rate = mTime / mStartEffectTime;
+        CameraDirector.Instance.mFollowSpeed = CustomMath.Lerp(mCamStartSpeed, mOriCameraSpeed, rate);
+
+        if(rate >= 1f)
         {
             mStartEffect = false;
             CameraDirector.Instance.mFollowSpeed = mOriCameraSpeed;
@@ -79,10 +87,13 @@ public class EffectDirector : Singletone<EffectDirector>
 
     public void StartEffect()
     {
+        mTime = 0f;
         Camera.main.transform.position = MapDirector.Instance.ExitTile.transform.position;
         mOriCameraSpeed = CameraDirector.Instance.mFollowSpeed;
-        CameraDirector.Instance.mFollowSpeed = 0.003f * CameraDirector.Instance.Distance;
+        CameraDirector.Instance.mFollowSpeed = CameraDirector.Instance.Distance * 0.003f;
         GameDirector.Instance.GamePause();
+
+        Debug.Log("camera " + Camera.main.transform.position + " OriCam " + mOriCameraSpeed + " StartCam " + mCamStartSpeed + " CameraTime " + mStartEffectTime);
 
         mStartEffect = true;
     }
