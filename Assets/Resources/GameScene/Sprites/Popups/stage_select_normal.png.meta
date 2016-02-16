@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: b048fb173cf5aff4baf2521e7e70c395
-timeCreated: 1454823507
+guid: ff5e5af7f75ae8a459cbb5dd39dad25b
+timeCreated: 1455619603
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -56,54 +56,58 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 362
-        width: 150
-        height: 150
+        y: 824
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -75, y: -29}
-        - {x: -75, y: -75}
-        - {x: 75, y: -75}
-        - {x: 75, y: -29}
-      - - {x: -75, y: 21}
-        - {x: -75, y: -25}
-        - {x: 75, y: -25}
-        - {x: 75, y: 17}
-        - {x: 73, y: 21}
-      - - {x: -70, y: 75}
-        - {x: -75, y: 72}
-        - {x: -75, y: 27}
-        - {x: 71, y: 27}
-        - {x: 75, y: 29}
-        - {x: 75, y: 73}
-        - {x: 73, y: 75}
+      - - {x: -100, y: -8}
+        - {x: -100, y: -54}
+        - {x: 52, y: -54}
+        - {x: 52, y: -14}
+        - {x: 49, y: -8}
+      - - {x: -100, y: 43}
+        - {x: -100, y: -2}
+        - {x: -97, y: -3}
+        - {x: 52, y: -3}
+        - {x: 52, y: 37}
+        - {x: 45, y: 43}
+      - - {x: -100, y: 95}
+        - {x: -100, y: 50}
+        - {x: -97, y: 49}
+        - {x: 48, y: 49}
+        - {x: 52, y: 52}
+        - {x: 52, y: 95}
     - name: stage_select_normal_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 362
-        width: 150
-        height: 150
+        x: 200
+        y: 824
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -75, y: -28}
-        - {x: -75, y: -75}
-        - {x: 75, y: -75}
-        - {x: 75, y: -28}
-      - - {x: -75, y: 22}
-        - {x: -75, y: -24}
-        - {x: 75, y: -24}
-        - {x: 75, y: 18}
-        - {x: 73, y: 22}
-      - - {x: -75, y: 75}
-        - {x: -75, y: 29}
-        - {x: -74, y: 28}
-        - {x: 75, y: 28}
-        - {x: 75, y: 75}
+      - - {x: -100, y: -8}
+        - {x: -100, y: -54}
+        - {x: 52, y: -54}
+        - {x: 52, y: -14}
+        - {x: 49, y: -8}
+      - - {x: -100, y: 43}
+        - {x: -100, y: -2}
+        - {x: -97, y: -3}
+        - {x: 52, y: -3}
+        - {x: 52, y: 37}
+        - {x: 45, y: 43}
+      - - {x: -100, y: 95}
+        - {x: -100, y: 50}
+        - {x: -97, y: 49}
+        - {x: 48, y: 49}
+        - {x: 52, y: 52}
+        - {x: 52, y: 95}
     outline: []
   spritePackingTag: 
   userData: 

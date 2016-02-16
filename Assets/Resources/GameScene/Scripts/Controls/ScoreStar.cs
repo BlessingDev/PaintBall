@@ -12,6 +12,7 @@ public class ScoreStar : MonoBehaviour
 	
     void Start()
     {
+        mCurStar = 0;
         mTime = mStarAnimationTime;
     }
 

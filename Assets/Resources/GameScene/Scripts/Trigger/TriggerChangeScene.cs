@@ -7,6 +7,6 @@ public class TriggerChangeScene : UITrigger
 
     public override void Trigger()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(mScene);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(mScene, UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 }

@@ -22,6 +22,7 @@ public class UIDirector : Singletone<UIDirector>
     private Canvas mCanvas = null;
     #endregion
 
+    #region Capsules
     public Vector2 SceneSize
     {
         get
@@ -29,6 +30,14 @@ public class UIDirector : Singletone<UIDirector>
             return new Vector2(mCanvas.pixelRect.width, mCanvas.pixelRect.height);
         }
     }
+    public Popup CurPopup
+    {
+        get
+        {
+            return mCurPopup;
+        }
+    }
+    #endregion
 
     // Use this for initialization
     void Start ()

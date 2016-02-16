@@ -88,36 +88,39 @@ public class GameDirector : Singletone<GameDirector>
     #region VirtualFunctions
     void Start()
     {
-        mInitialized = true;
-        if (FindObjectsOfType<GameDirector>().Length > 1)
+        if(!mInitialized)
         {
-            Destroy(gameObject);
-            return;
-        }
-
-        DontDestroyOnLoad(gameObject);
-
-        mFileName = "1_1";
-
-        if(System.IO.File.Exists(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data"))
-        {
-            var reader = FileIODirector.ReadFile(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data");
-
-            int stageNum = System.Convert.ToInt32(reader.ReadLine());
-
-            for(int i = 0; i < stageNum; i++)
+            mInitialized = true;
+            if (FindObjectsOfType<GameDirector>().Length > 1)
             {
-                int score = System.Convert.ToInt32(reader.ReadLine());
-                mScoreDic.Add((i / 5 + 1).ToString() + "_" + (i % 5 + 1).ToString(), score);
+                Destroy(gameObject);
+                return;
             }
 
-            mMaxStage = ((stageNum + 1) / 5 + 1).ToString() + "_" + ((stageNum + 1) % 5 + 1).ToString();
+            DontDestroyOnLoad(gameObject);
 
-            mScoreDic.Add(mMaxStage, -1);
-        }
-        else
-        {
-            mScoreDic.Add("1_1", -1);
+            mFileName = "1_1";
+
+            if (System.IO.File.Exists(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data"))
+            {
+                var reader = FileIODirector.ReadFile(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data");
+
+                int stageNum = System.Convert.ToInt32(reader.ReadLine());
+
+                for (int i = 0; i < stageNum; i++)
+                {
+                    int score = System.Convert.ToInt32(reader.ReadLine());
+                    mScoreDic.Add((i / 5 + 1).ToString() + "_" + (i % 5 + 1).ToString(), score);
+                }
+
+                mMaxStage = ((stageNum + 1) / 5 + 1).ToString() + "_" + ((stageNum + 1) % 5 + 1).ToString();
+
+                mScoreDic.Add(mMaxStage, -1);
+            }
+            else
+            {
+                mScoreDic.Add("1_1", -1);
+            }
         }
     }
 
@@ -129,6 +132,7 @@ public class GameDirector : Singletone<GameDirector>
             {
                 case 2:
                     mAnimators.Clear();
+                    mScore = 0;
                     mUpdate = true;
                     //MapDirector가 있다면
                     if (MapDirector.Instance != null)
@@ -148,7 +152,10 @@ public class GameDirector : Singletone<GameDirector>
 
     void OnDestroy()
     {
-        SaveGameData();
+        if(mInitialized)
+        {
+            SaveGameData();
+        }
     }
 
     void Update()
@@ -193,7 +200,7 @@ public class GameDirector : Singletone<GameDirector>
     #region CustomFunctions
     private void SaveGameData()
     {
-        var writer = FileIODirector.WriteFile("Datas\\GameData.data");
+        var writer = FileIODirector.WriteFile("Datas\\GameData.gamedata");
 
         writer.WriteLine(mScoreDic.Count);
         foreach(var iter in mScoreDic)

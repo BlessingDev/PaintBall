@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d3ebe659da9c95a4cae647819ed5fc8d
-timeCreated: 1454825936
+guid: 32c481bd395b38b40aa710298126e98f
+timeCreated: 1455623704
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -56,52 +56,44 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 362
-        width: 150
-        height: 150
+        y: 824
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -44, y: 75}
-        - {x: -75, y: 33}
-        - {x: -75, y: -25}
-        - {x: -60, y: -56}
-        - {x: -53, y: -61}
-        - {x: -30, y: -74}
-        - {x: -10, y: -48}
-        - {x: -14, y: -38}
-        - {x: 7, y: -12}
-        - {x: -13, y: -56}
-        - {x: -7, y: -75}
-        - {x: 75, y: -75}
-        - {x: 75, y: 62}
-        - {x: 48, y: 75}
+      - - {x: -74, y: 100}
+        - {x: -100, y: 64}
+        - {x: -100, y: -34}
+        - {x: -49, y: -53}
+        - {x: -31, y: -26}
+        - {x: -32, y: -46}
+        - {x: -24, y: -53}
+        - {x: 51, y: -53}
+        - {x: 51, y: 96}
+        - {x: 34, y: 100}
     - name: re_normal_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 362
-        width: 150
-        height: 150
+        x: 200
+        y: 824
+        width: 200
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -48, y: 75}
-        - {x: -75, y: 48}
-        - {x: -75, y: -31}
-        - {x: -57, y: -66}
-        - {x: -30, y: -74}
-        - {x: -10, y: -48}
-        - {x: -14, y: -38}
-        - {x: 7, y: -12}
-        - {x: -13, y: -56}
-        - {x: -7, y: -75}
-        - {x: 65, y: -75}
-        - {x: 75, y: -58}
-        - {x: 75, y: 45}
-        - {x: 63, y: 75}
+      - - {x: -74, y: 100}
+        - {x: -100, y: 64}
+        - {x: -100, y: -34}
+        - {x: -49, y: -53}
+        - {x: -31, y: -26}
+        - {x: -32, y: -46}
+        - {x: -24, y: -53}
+        - {x: 51, y: -53}
+        - {x: 51, y: 96}
+        - {x: 34, y: 100}
     outline: []
   spritePackingTag: 
   userData: 

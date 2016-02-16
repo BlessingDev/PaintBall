@@ -17,11 +17,6 @@ public class Popup : MonoBehaviour
         {
             mEnterTriggers[i].Trigger();
         }
-
-        transform.position = UIDirector.Instance.SceneSize / 2;
-        UIDirector.Instance.SetLayerEnableTouch(0, false);
-        UIDirector.Instance.SetLayerEnableTouch(mUILayerIndex, true);
-        GameDirector.Instance.GamePause();
     }
 
     public void OnClose()
@@ -30,10 +25,19 @@ public class Popup : MonoBehaviour
         {
             mExitTriggers[i].Trigger();
         }
+    }
 
+    public void OpenAndActivate()
+    {
+        transform.position = UIDirector.Instance.SceneSize / 2;
+        UIDirector.Instance.SetLayerEnableTouch(0, false);
+        UIDirector.Instance.SetLayerEnableTouch(mUILayerIndex, true);
+    }
+
+    public void CloseAndInactivate()
+    {
         transform.position = mInvisiblePos;
         UIDirector.Instance.SetLayerEnableTouch(0, true);
         UIDirector.Instance.SetLayerEnableTouch(mUILayerIndex, false);
-        GameDirector.Instance.GameResume();
     }
 }
