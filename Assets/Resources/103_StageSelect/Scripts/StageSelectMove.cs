@@ -9,13 +9,10 @@ public class StageSelectMove : MonoBehaviour {
 
     Vector3 StageVec;
     float StageMoveNum = 0;
-    float StagNum = 432;
-    public Canvas can = null;
-    float ScreenWidth = 0;
+
 
     void Start () {
         StageVec = GameObject.Find("StageSelect").transform.localPosition;
-        StagNum = Screen.width;
         Speed = Screen.width;
 	}
 
@@ -48,7 +45,7 @@ public class StageSelectMove : MonoBehaviour {
         if (StageMoveRChek == true)
         {
             Debug.Log("StageChek");
-            if (StageVec.x >= StageMoveNum - StagNum)
+            if (StageVec.x >= StageMoveNum - Screen.width)
             {
                 Debug.Log("If_OK");
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x -= Speed * Time.deltaTime, StageVec.y, StageVec.z);
@@ -56,21 +53,21 @@ public class StageSelectMove : MonoBehaviour {
             else
             {
                 StageMoveRChek = false;
-                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum - StagNum, StageVec.y, StageVec.z);
+                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum - Screen.width, StageVec.y, StageVec.z);
                 StageMoveNum = StageVec.x;
             }
 
         }
         else if(StageMoveLChek == true)
         {
-            if (StageVec.x <= StageMoveNum + StagNum)
+            if (StageVec.x <= StageMoveNum + Screen.width)
             {
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x += Speed * Time.deltaTime, StageVec.y, StageVec.z);
             }
             else
             {
                 StageMoveLChek = false;
-                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum + StagNum, StageVec.y, StageVec.z);
+                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum + Screen.width, StageVec.y, StageVec.z);
                 StageMoveNum = StageVec.x;
             }
         }
