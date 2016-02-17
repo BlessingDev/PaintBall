@@ -5,6 +5,8 @@ public class TriggerSetPlayerSpriteShow : UITrigger
 {
     private SpriteRenderer mSprite = null;
     private SpriteRenderer mArm = null;
+    [SerializeField]
+    private bool mEnalble = false;
 
 	// Use this for initialization
 	void Start ()
@@ -15,7 +17,7 @@ public class TriggerSetPlayerSpriteShow : UITrigger
 
     public override void Trigger()
     {
-        mSprite.enabled = false;
-        mArm.enabled = false;
+        mSprite.enabled = mEnalble;
+        mArm.enabled = mEnalble;
     }
 }

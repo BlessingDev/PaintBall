@@ -16,6 +16,10 @@ public class EffectDirector : Singletone<EffectDirector>
     private float mOriCameraSpeed = 0f;
     private float mCamStartSpeed = 0f;
     private float mTime = 0f;
+    /// <summary>
+    /// y = ax^2의 a
+    /// </summary>
+    private float mA = 1f;
     #endregion
 
     #region VirtualFunctions
@@ -43,13 +47,15 @@ public class EffectDirector : Singletone<EffectDirector>
         CameraDirector.Instance.update();
         
         mTime += Time.deltaTime;
-        float rate = mTime / mStartEffectTime;
-        CameraDirector.Instance.mFollowSpeed = CustomMath.Lerp(mCamStartSpeed, mOriCameraSpeed, rate);
-
-        if(rate >= 1f)
+        if(mTime <= mStartEffectTime)
+        {
+            CameraDirector.Instance.mFollowSpeed = mA * mTime * mTime;
+            Debug.Log("Time " + mTime + " Speed " + CameraDirector.Instance.mFollowSpeed);
+        }
+        
+        if(Mathf.Abs(CameraDirector.Instance.mFollowSpeed - mOriCameraSpeed) <= 2.8f)
         {
             mStartEffect = false;
-            CameraDirector.Instance.mFollowSpeed = mOriCameraSpeed;
             GameDirector.Instance.GameResume();
         }
     }
@@ -90,8 +96,10 @@ public class EffectDirector : Singletone<EffectDirector>
         mTime = 0f;
         Camera.main.transform.position = MapDirector.Instance.ExitTile.transform.position;
         mOriCameraSpeed = CameraDirector.Instance.mFollowSpeed;
-        CameraDirector.Instance.mFollowSpeed = CameraDirector.Instance.Distance * 0.003f;
+        CameraDirector.Instance.mFollowSpeed = 0;
+        mStartEffectTime = CameraDirector.Instance.Distance * 0.5f;
         GameDirector.Instance.GamePause();
+        mA = mOriCameraSpeed / (mStartEffectTime * mStartEffectTime);
 
         Debug.Log("camera " + Camera.main.transform.position + " OriCam " + mOriCameraSpeed + " StartCam " + mCamStartSpeed + " CameraTime " + mStartEffectTime);
 

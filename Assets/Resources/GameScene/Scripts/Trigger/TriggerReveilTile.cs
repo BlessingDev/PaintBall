@@ -20,7 +20,7 @@ public class TriggerReveilTile : UITrigger
 
     public void Veiled()
     {
-        Debug.Log("Veiled");
+        Debug.Log(name + "Veiled");
         mSprite.sortingOrder = 0;
     }
 }

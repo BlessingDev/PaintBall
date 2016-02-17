@@ -88,22 +88,23 @@ public class GameDirector : Singletone<GameDirector>
     #region VirtualFunctions
     void Start()
     {
-        if(!mInitialized)
+        if (FindObjectsOfType<GameDirector>().Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        if (!mInitialized)
         {
             mInitialized = true;
-            if (FindObjectsOfType<GameDirector>().Length > 1)
-            {
-                Destroy(gameObject);
-                return;
-            }
 
             DontDestroyOnLoad(gameObject);
 
             mFileName = "1_1";
 
-            if (System.IO.File.Exists(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data"))
+            if (System.IO.File.Exists(System.Environment.CurrentDirectory + "\\Assets\\Resources\\Datas\\GameData.gamedata"))
             {
-                var reader = FileIODirector.ReadFile(System.Environment.CurrentDirectory + "Assets\\Resources\\Datas\\GameData.data");
+                var reader = FileIODirector.ReadFile("Datas\\GameData.gamedata");
 
                 int stageNum = System.Convert.ToInt32(reader.ReadLine());
 
@@ -113,7 +114,8 @@ public class GameDirector : Singletone<GameDirector>
                     mScoreDic.Add((i / 5 + 1).ToString() + "_" + (i % 5 + 1).ToString(), score);
                 }
 
-                mMaxStage = ((stageNum + 1) / 5 + 1).ToString() + "_" + ((stageNum + 1) % 5 + 1).ToString();
+                mMaxStage = ((stageNum) / 5 + 1).ToString() + "_" + ((stageNum + 1) % 5).ToString();
+                Debug.Log("MaxStage " + mMaxStage);
 
                 mScoreDic.Add(mMaxStage, -1);
             }
@@ -202,12 +204,17 @@ public class GameDirector : Singletone<GameDirector>
     {
         var writer = FileIODirector.WriteFile("Datas\\GameData.gamedata");
 
-        writer.WriteLine(mScoreDic.Count);
+        Debug.Log("Write GameData File");
+        writer.WriteLine(mScoreDic.Count - 1);
         foreach(var iter in mScoreDic)
         {
-            Debug.Log("WriteFile Stage " + iter.Key + " Score " + iter.Value);
-            writer.WriteLine(iter.Value);
+            if(iter.Value != -1)
+            {
+                writer.WriteLine(iter.Value);
+                Debug.Log("WriteFile Stage " + iter.Key + " Score " + iter.Value);
+            }
         }
+        writer.Close();
     }
 
     /// <summary>
@@ -284,6 +291,9 @@ public class GameDirector : Singletone<GameDirector>
         {
             mScoreDic.Add(mFileName, mScore);
         }
+
+        if(!mScoreDic.ContainsKey(GetNextStage(mFileName)))
+            mScoreDic.Add(GetNextStage(mFileName), -1);
 
         GamePause();
         mGameCleared = true;

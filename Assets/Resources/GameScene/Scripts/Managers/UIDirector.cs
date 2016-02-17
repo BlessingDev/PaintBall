@@ -14,7 +14,9 @@ public class UIDirector : Singletone<UIDirector>
     public bool mUITouched = false;
 
     [SerializeField]
-    private Stick[] mSticks = null;
+    private UnityEngine.UI.Text mDeathCount = null;
+    [SerializeField]
+    private UnityEngine.UI.Text mBulletCount = null;
     [SerializeField]
     private UILayer[] mLayers = null;
     private Dictionary<string, Popup> mPopupDic = new Dictionary<string, Popup>();
@@ -54,9 +56,13 @@ public class UIDirector : Singletone<UIDirector>
 	
     public void update()
     {
-        for(int i = 0; i < mSticks.Length; i++)
+        if(mDeathCount != null)
         {
-            mSticks[i].update();
+            mDeathCount.text = GameDirector.Instance.DeathCount.ToString();
+        }
+        if(mBulletCount != null)
+        {
+            mBulletCount.text = GameDirector.Instance.BulletLimit.ToString();
         }
     }
 

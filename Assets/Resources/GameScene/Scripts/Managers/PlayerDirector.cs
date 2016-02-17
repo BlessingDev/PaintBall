@@ -213,4 +213,10 @@ public class PlayerDirector : Singletone<PlayerDirector>
     {
         mRB.velocity = Vector3.zero;
     }
+
+    public void Init()
+    {
+        mLeft = false;
+        mRight = false;
+    }
 }

@@ -26,6 +26,7 @@ public class FileIODirector
     {
         StreamWriter writer = null;
         string path = System.Environment.CurrentDirectory + "\\Assets\\Resources\\" + fFileName;
+        Debug.Log("Try Open File " + path);
 
         writer = new StreamWriter(path);
 

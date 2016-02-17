@@ -7,4 +7,9 @@ public class TriggerGameOver : UITrigger
     {
         GameDirector.Instance.GameOver();
     }
+
+    public void GameOver()
+    {
+        Trigger();
+    }
 }

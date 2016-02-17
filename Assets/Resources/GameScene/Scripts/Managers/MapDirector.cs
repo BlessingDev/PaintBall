@@ -99,12 +99,12 @@ public class MapDirector : Singletone<MapDirector>
 
     #region CustomFunctions
 
-    public void LoadMap(string mFileName)
+    public void LoadMap(string fFileName)
     {
         if (!mInitialized)
             Start();
 
-        var reader = FileIODirector.ReadFile("Maps\\" + mFileName + ".mapdata");
+        var reader = FileIODirector.ReadFile("Maps\\" + fFileName + ".mapdata");
 
         if(reader != null)
         {
@@ -233,33 +233,6 @@ public class MapDirector : Singletone<MapDirector>
 
                 return fIndex;
             #endregion
-            case '4':
-                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
-                {
-                    tile = Instantiate(obj) as GameObject;
-                    Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
-                    tile.transform.position = GetPositionFromMapIndex(fMapIndex);
-
-                }
-                else
-                {
-                    Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
-                }
-
-                fIndex += 1;
-                num = "";
-                for (; fData[fIndex] != '!'; fIndex++)
-                {
-                    num += fData[fIndex];
-                }
-                fIndex += 1;
-
-                TriggerReload trigger = tile.GetComponent<TriggerReload>();
-
-                trigger.mReload = System.Convert.ToInt32(num);
-                mTiles.Add(tile.GetComponent<Tile>());
-
-                return fIndex;
             case '5':
                 obj = null;
                 if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
@@ -279,6 +252,7 @@ public class MapDirector : Singletone<MapDirector>
                 return fIndex + 1;
             case '1':
             case '2':
+            case '4':
             case '6':
             case '7':
             case '8':
@@ -297,6 +271,50 @@ public class MapDirector : Singletone<MapDirector>
 
                 mTiles.Add(tile.GetComponent<Tile>());
                 return fIndex + 1;
+            #region case9
+            case '9':
+                obj = null;
+                if (mTilePrefabDic.TryGetValue(tileCode.ToString(), out obj))
+                {
+                    tile = Instantiate(obj) as GameObject;
+                    Debug.Log("tilePos " + GetPositionFromMapIndex(fMapIndex));
+                    tile.transform.position = GetPositionFromMapIndex(fMapIndex);
+
+                }
+                else
+                {
+                    Debug.LogWarning("Could Not Find " + tileCode.ToString() + " from PrefabDictionary");
+                }
+
+                TutorialTile tuTile = tile.GetComponent<TutorialTile>();
+                mTiles.Add(tuTile);
+
+                fIndex += 1;
+                fIndex = LoadTile(fData, fIndex, fMapIndex);
+                fIndex += 1;
+
+                tuTile.transform.parent = mTiles[mTiles.Count - 1].transform;
+
+                num = "";
+                for (; fData[fIndex] != '!'; fIndex++)
+                {
+                    num += fData[fIndex];
+                }
+                fIndex += 1;
+
+                tuTile.mTutorialType = System.Convert.ToInt32(num);
+
+                num = "";
+                for (; fData[fIndex] != '!'; fIndex++)
+                {
+                    num += fData[fIndex];
+                }
+                fIndex += 1;
+
+                tuTile.mTutorialText = System.Convert.ToInt32(num);
+
+                return fIndex;
+            #endregion
             case '@':
                 PlayerDirector.Instance.MakePlayer(GetPositionFromMapIndex(fMapIndex));
                 mCheckPoint = GetPositionFromMapIndex(fMapIndex);

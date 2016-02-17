@@ -25,7 +25,10 @@ public class TileEffectAnimation : MonoBehaviour
         mAnimator.SetBool("Effect", true);
         
         if (mPausedOnStart)
+        {
+            PlayerDirector.Instance.Init();
             GameDirector.Instance.IsUpdate = false;
+        }
     }
 
     void EffectEnd()
