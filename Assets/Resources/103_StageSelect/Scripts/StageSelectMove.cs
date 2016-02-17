@@ -9,11 +9,11 @@ public class StageSelectMove : MonoBehaviour {
 
     Vector3 StageVec;
     float StageMoveNum = 0;
-    [SerializeField]
-    private float mMoveX = 450f;
-    
+
+
     void Start () {
         StageVec = GameObject.Find("StageSelect").transform.localPosition;
+        Speed = Screen.width;
 	}
 
     public void RightMove()
@@ -44,28 +44,28 @@ public class StageSelectMove : MonoBehaviour {
 	void Update () {
         if (StageMoveRChek == true)
         {
-            Debug.Log("StageChek");
-            if(StageVec.x >= StageMoveNum - mMoveX)
+            if (StageVec.x >= StageMoveNum - Screen.width)
             {
-                Debug.Log("If_OK");
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x -= Speed * Time.deltaTime, StageVec.y, StageVec.z);
             }
             else
             {
                 StageMoveRChek = false;
+                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum - Screen.width, StageVec.y, StageVec.z);
                 StageMoveNum = StageVec.x;
             }
 
         }
         else if(StageMoveLChek == true)
         {
-            if (StageVec.x <= StageMoveNum + mMoveX)
+            if (StageVec.x <= StageMoveNum + Screen.width)
             {
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x += Speed * Time.deltaTime, StageVec.y, StageVec.z);
             }
             else
             {
                 StageMoveLChek = false;
+                GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x = StageMoveNum + Screen.width, StageVec.y, StageVec.z);
                 StageMoveNum = StageVec.x;
             }
         }
