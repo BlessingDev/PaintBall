@@ -44,10 +44,8 @@ public class StageSelectMove : MonoBehaviour {
 	void Update () {
         if (StageMoveRChek == true)
         {
-            Debug.Log("StageChek");
             if (StageVec.x >= StageMoveNum - Screen.width)
             {
-                Debug.Log("If_OK");
                 GameObject.Find("StageSelect").transform.localPosition = new Vector3(StageVec.x -= Speed * Time.deltaTime, StageVec.y, StageVec.z);
             }
             else

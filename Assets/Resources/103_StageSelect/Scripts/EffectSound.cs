@@ -11,7 +11,6 @@ public class EffectSound : MonoBehaviour {
     void Update()
     {
         EffectChek = ESC.EffectChekSound;
-        Debug.Log("EffectChek : " + EffectChek);
         if (EffectChek == true)
         {
             EffectSoundOns();
@@ -27,6 +26,7 @@ public class EffectSound : MonoBehaviour {
             Effects[a].volume = 1;
             a++;
         }
+        if (EffectSounds != null)
         EffectSounds.transform.localPosition = new Vector3(90, -60, 0);
     }
 
@@ -37,6 +37,7 @@ public class EffectSound : MonoBehaviour {
             Effects[a].volume = 0;
             a++;
         }
+        if (EffectSounds != null)
         EffectSounds.transform.localPosition = new Vector3(1000, 1000, 1000);
     }
 
