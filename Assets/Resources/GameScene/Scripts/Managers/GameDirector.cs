@@ -348,5 +348,12 @@ public class GameDirector : Singletone<GameDirector>
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
+
+    public bool IsOpend(int fChapter, int fStage)
+    {
+        string stage = fChapter.ToString() + "_" + fStage.ToString();
+
+        return mScoreDic.ContainsKey(stage);
+    }
     #endregion
 }
