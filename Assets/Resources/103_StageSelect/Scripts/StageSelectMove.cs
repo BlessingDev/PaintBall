@@ -10,6 +10,7 @@ public class StageSelectMove : MonoBehaviour {
     Vector3 StageVec;
     float StageMoveNum = 0;
 
+
     void Start () {
         StageVec = GameObject.Find("StageSelect").transform.localPosition;
         Speed = Screen.width;
