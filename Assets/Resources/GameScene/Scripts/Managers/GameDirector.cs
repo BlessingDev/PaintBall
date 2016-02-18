@@ -132,7 +132,21 @@ public class GameDirector : Singletone<GameDirector>
         {
             switch (level)
             {
+                case 1:
+                    if(!SoundDirector.Instance.PlayBGM("TitleSound", true))
+                    {
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("TitleSound", false);
+                    }
+                    break;
                 case 2:
+                    if (!SoundDirector.Instance.PlayBGM("TitleSound", true))
+                    {
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("TitleSound", false);
+                    }
+                    break;
+                case 3:
                     mAnimators.Clear();
                     mScore = 0;
                     mUpdate = true;
@@ -147,6 +161,13 @@ public class GameDirector : Singletone<GameDirector>
                     mUpdate = false;
                     mGameCleared = false;
 
+                    break;
+                case 4:
+                    if (!SoundDirector.Instance.PlayBGM("TitleSound", true))
+                    {
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("TitleSound", false);
+                    }
                     break;
             }
         }
@@ -172,6 +193,7 @@ public class GameDirector : Singletone<GameDirector>
                 ShootingDirector.Instance.update();
                 MapDirector.Instance.update();
                 EffectDirector.Instance.update();
+                SoundDirector.Instance.update();
 
                 KeyboardInput();
             }
