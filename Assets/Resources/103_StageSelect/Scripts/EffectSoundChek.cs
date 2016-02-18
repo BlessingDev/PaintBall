@@ -8,21 +8,25 @@ public class EffectSoundChek : MonoBehaviour {
 
     public void EffectChekOn()
     {
+        SoundDirector.Instance.EnableEffect = false;
         EffectSoundCheks = false;
     }
 
     public void EffectChekOff()
     {
+        SoundDirector.Instance.EnableEffect = true;
         EffectSoundCheks = true;
     }
 
     public void BgChekOn()
     {
+        SoundDirector.Instance.EnableBGM = false;
         BgSoundChek = false;
     }
 
     public void BgChekOff()
     {
+        SoundDirector.Instance.EnableBGM = true;
         BgSoundChek = true;
     }
 

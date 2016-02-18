@@ -67,9 +67,10 @@ public class SoundDirector : Singletone<SoundDirector>
         } 
     }
 
-    public void update()
+    void Update()
     {
-        mCurBGM.transform.position = Camera.main.transform.position;
+        if(mCurBGM != null)
+            mCurBGM.transform.position = Camera.main.transform.position;
     }
     #endregion
 

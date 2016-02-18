@@ -96,6 +96,7 @@ public class GameDirector : Singletone<GameDirector>
 
         if (!mInitialized)
         {
+            PlayBGMByLevel();
             mInitialized = true;
 
             DontDestroyOnLoad(gameObject);
@@ -128,41 +129,19 @@ public class GameDirector : Singletone<GameDirector>
 
     void OnLevelWasLoaded(int level)
     {
+        Debug.Log("LevelLoaded");
         if(mInitialized)
         {
             switch (level)
             {
                 case 1:
-                    if(!SoundDirector.Instance.PlayBGM("TitleSound", true))
-                    {
-                        SoundDirector.Instance.StopCurBGM();
-                        SoundDirector.Instance.PlayBGM("TitleSound", false);
-                    }
+                    PlayBGMByLevel();
                     break;
                 case 2:
-                    if (!SoundDirector.Instance.PlayBGM("TitleSound", true))
-                    {
-                        SoundDirector.Instance.StopCurBGM();
-                        SoundDirector.Instance.PlayBGM("TitleSound", false);
-                    }
+                    PlayBGMByLevel();
                     break;
                 case 3:
-                    int chapter = mFileName[0] - 48;
-                    switch(chapter)
-                    {
-                        case 1:
-                            SoundDirector.Instance.StopCurBGM();
-                            SoundDirector.Instance.PlayBGM("Chapter1 Sound", false);
-                            break;
-                        case 2:
-                            SoundDirector.Instance.StopCurBGM();
-                            SoundDirector.Instance.PlayBGM("Chapter2 Sound", false);
-                            break;
-                        case 3:
-                            SoundDirector.Instance.StopCurBGM();
-                            SoundDirector.Instance.PlayBGM("Chapter3 Sound", false);
-                            break;
-                    }
+                    PlayBGMByLevel();
 
                     mAnimators.Clear();
                     mScore = 0;
@@ -180,11 +159,7 @@ public class GameDirector : Singletone<GameDirector>
 
                     break;
                 case 4:
-                    if (!SoundDirector.Instance.PlayBGM("TitleSound", true))
-                    {
-                        SoundDirector.Instance.StopCurBGM();
-                        SoundDirector.Instance.PlayBGM("TitleSound", false);
-                    }
+                    PlayBGMByLevel();
                     break;
             }
         }
@@ -210,7 +185,6 @@ public class GameDirector : Singletone<GameDirector>
                 ShootingDirector.Instance.update();
                 MapDirector.Instance.update();
                 EffectDirector.Instance.update();
-                SoundDirector.Instance.update();
 
                 KeyboardInput();
             }
@@ -393,6 +367,40 @@ public class GameDirector : Singletone<GameDirector>
         string stage = fChapter.ToString() + "_" + fStage.ToString();
 
         return mScoreDic.ContainsKey(stage);
+    }
+
+    public void PlayBGMByLevel()
+    {
+        switch(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex)
+        {
+            case 1:
+            case 2:
+            case 4:
+                if(!SoundDirector.Instance.CurBGM.name.Equals("TitleSound"))
+                {
+                    SoundDirector.Instance.StopCurBGM();
+                    SoundDirector.Instance.PlayBGM("TitleSound", true);
+                }
+                break;
+            case 3:
+                int chapter = mFileName[0] - 48;
+                switch (chapter)
+                {
+                    case 1:
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("Chapter1 Sound", false);
+                        break;
+                    case 2:
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("Chapter2 Sound", false);
+                        break;
+                    case 3:
+                        SoundDirector.Instance.StopCurBGM();
+                        SoundDirector.Instance.PlayBGM("Chapter3 Sound", false);
+                        break;
+                }
+                break;
+        }
     }
     #endregion
 }
