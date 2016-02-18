@@ -147,6 +147,23 @@ public class GameDirector : Singletone<GameDirector>
                     }
                     break;
                 case 3:
+                    int chapter = mFileName[0] - 48;
+                    switch(chapter)
+                    {
+                        case 1:
+                            SoundDirector.Instance.StopCurBGM();
+                            SoundDirector.Instance.PlayBGM("Chapter1 Sound", false);
+                            break;
+                        case 2:
+                            SoundDirector.Instance.StopCurBGM();
+                            SoundDirector.Instance.PlayBGM("Chapter2 Sound", false);
+                            break;
+                        case 3:
+                            SoundDirector.Instance.StopCurBGM();
+                            SoundDirector.Instance.PlayBGM("Chapter3 Sound", false);
+                            break;
+                    }
+
                     mAnimators.Clear();
                     mScore = 0;
                     mUpdate = true;
